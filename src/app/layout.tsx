@@ -10,9 +10,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Vision AR - Next Generation Augmented Reality Glasses",
-  description: "Experience the future today with Vision AR glasses. Join the waitlist for our cutting-edge augmented reality technology designed for everyday use.",
-  keywords: ["AR glasses", "augmented reality", "wearable tech", "smart glasses", "future technology"],
+  title: "Cleo - Next Generation Augmented Reality Glasses",
+  description: "Experience the future today with Cleo glasses. Join the waitlist for our cutting-edge augmented reality technology designed for everyday use.",
+  keywords: ["Cleo glasses", "augmented reality", "wearable tech", "smart glasses", "future technology"],
 };
 
 export default function RootLayout({

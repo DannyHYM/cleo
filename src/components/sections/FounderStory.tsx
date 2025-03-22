@@ -1,156 +1,127 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-
-type TimelineEvent = {
-  id: string;
-  year: string;
-  title: string;
-  description: string;
-};
-
-const timelineEvents: TimelineEvent[] = [
-  {
-    id: "event-1",
-    year: "2018",
-    title: "The Initial Concept",
-    description: "As an industrial designer, I became frustrated with the disconnect between digital and physical spaces. The initial sketches for Vision AR were born from a need to bridge this gap.",
-  },
-  {
-    id: "event-2",
-    year: "2020",
-    title: "Research & Development",
-    description: "After assembling a small team of engineers and designers, we spent two years refining our approach to spatial computing and overcoming the challenges of miniaturization.",
-  },
-  {
-    id: "event-3",
-    year: "2022",
-    title: "First Prototype",
-    description: "Our breakthrough moment came with the first working prototype - lightweight, comfortable, and with a display that finally delivered on the promise of seamless AR.",
-  },
-  {
-    id: "event-4",
-    year: "2023",
-    title: "Vision Takes Shape",
-    description: "We refined the user experience and built our first software ecosystem, focusing on the core experiences that would define what makes Vision AR special.",
-  },
-  {
-    id: "event-5",
-    year: "2024",
-    title: "Preparing for Launch",
-    description: "With production partnerships secured and our design finalized, we're preparing to bring Vision AR to the world, starting with a limited release to our early supporters.",
-  },
-];
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 const FounderStory = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-  
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.3, 1, 1, 0.3]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8]);
-  
   return (
-    <section id="founder-story" className="py-28 px-4 md:px-6 bg-white dark:bg-black relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute -top-40 -right-40 w-80 h-80 bg-orange-600/5 rounded-full blur-3xl"></div>
-      <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-orange-600/5 rounded-full blur-3xl"></div>
+    <section id="founder-story" className="py-24 px-4 md:px-6 overflow-hidden relative">
+      {/* Background decorative elements */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent"></div>
+      <div className="absolute inset-0 overflow-hidden z-0">
+        <div className="absolute -right-40 top-1/4 w-96 h-96 rounded-full bg-sky-200/30 dark:bg-sky-900/20 blur-3xl"></div>
+        <div className="absolute -left-40 bottom-1/3 w-96 h-96 rounded-full bg-sky-200/30 dark:bg-sky-900/20 blur-3xl"></div>
+      </div>
       
-      {/* Content container */}
-      <div className="max-w-7xl mx-auto" ref={containerRef}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          {/* Left side: Founder image and quote */}
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+          {/* Founder image and quote */}
           <motion.div
-            style={{
-              opacity,
-              scale,
-            }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="relative z-10">
-              <div className="aspect-[4/5] bg-neutral-100 dark:bg-neutral-900 rounded-xl overflow-hidden relative">
-                {/* Placeholder for founder image */}
-                <img
-                  src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=1470&auto=format&fit=crop"
-                  alt="Founder"
-                  className="w-full h-full object-cover"
-                />
-                
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                
-                {/* Founder name */}
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 className="text-white text-2xl font-medium mb-1">Alex Morgan</h3>
-                  <p className="text-white/80 text-sm">Founder & CEO</p>
-                </div>
-              </div>
-              
-              {/* Quote */}
-              <div className="absolute -bottom-12 -right-12 max-w-xs bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-lg z-20">
-                <p className="text-neutral-600 dark:text-neutral-300 text-sm italic">
-                  "We're not just building another tech gadget. We're creating a new way to see and interact with the world around us."
-                </p>
-              </div>
+            <div className="relative rounded-2xl overflow-hidden shadow-xl">
+              <div className="absolute inset-0 bg-gradient-to-tr from-sky-500/30 to-transparent mix-blend-overlay z-10"></div>
+              <Image
+                src="/founder.jpg"
+                alt="Founder of Cleo"
+                width={600}
+                height={800}
+                className="w-full h-auto object-cover"
+              />
             </div>
             
-            {/* Decorative elements */}
-            <div className="absolute top-1/2 left-0 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-orange-100 dark:bg-orange-900/20 rounded-full z-0"></div>
-            <div className="absolute -top-4 -right-4 w-16 h-16 border border-orange-200 dark:border-orange-800 rounded-full z-0"></div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="absolute -bottom-10 -right-10 md:right-auto md:-left-10 bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-lg max-w-xs transform rotate-1 md:rotate-2 border border-neutral-100 dark:border-neutral-800"
+            >
+              <div className="text-sky-600 dark:text-sky-400 text-4xl font-serif leading-none mb-2">"</div>
+              <p className="italic text-neutral-700 dark:text-neutral-300 mb-4">
+                We're building technology that enhances human potential rather than replacing it.
+              </p>
+              <div className="flex items-center">
+                <div className="w-2 h-2 bg-sky-500 rounded-full mr-2"></div>
+                <span className="text-sm font-medium">Alex Rivera, Founder & CEO</span>
+              </div>
+            </motion.div>
           </motion.div>
           
-          {/* Right side: Timeline */}
-          <div className="relative">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-3xl md:text-4xl font-bold mb-6 tracking-tight"
-            >
-              Our Journey
-            </motion.h2>
+          {/* Story content */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">The Vision Behind<br />Our Company</h2>
             
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-lg text-neutral-600 dark:text-neutral-400 mb-12 font-light"
-            >
-              From concept to reality: how Vision AR came to be
-            </motion.p>
+            <div className="space-y-6 text-neutral-700 dark:text-neutral-300">
+              <p>
+                What began as a research project at Stanford in 2018 has evolved into a mission to redefine how humans interact with digital information. Our founder, Alex Rivera, experienced firsthand the limitations of existing interfaces when working on complex engineering projects.
+              </p>
+              <p>
+                "Information should adapt to our lives, not the other way around," Alex often says. This philosophy drove our team to develop a more natural and intuitive computing platform that integrates seamlessly with your perception.
+              </p>
+              <p>
+                After three years of R&D and $42M in funding, we're bringing this vision to life with our first consumer product - a revolutionary pair of Cleo glasses that feel as natural as wearing sunglasses, while offering capabilities that seemed like science fiction just a few years ago.
+              </p>
+            </div>
             
             {/* Timeline */}
-            <div className="relative pl-8 border-l border-neutral-200 dark:border-neutral-800">
-              {timelineEvents.map((event, index) => (
-                <motion.div
-                  key={event.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+            <div className="mt-12 relative">
+              <div className="absolute left-0 top-0 bottom-0 w-px bg-neutral-200 dark:bg-neutral-800"></div>
+              
+              {/* Timeline items */}
+              {[
+                { 
+                  year: "2018", 
+                  title: "Research Project", 
+                  description: "Stanford research lab begins exploring AR interfaces",
+                  delay: 0.1
+                },
+                { 
+                  year: "2020", 
+                  title: "Company Founded", 
+                  description: "Cleo is founded with seed funding of $5M",
+                  delay: 0.2
+                },
+                { 
+                  year: "2022", 
+                  title: "Prototype Developed", 
+                  description: "First working prototype achieves 60° FOV",
+                  delay: 0.3
+                },
+                { 
+                  year: "2024", 
+                  title: "Product Launch", 
+                  description: "Cleo glasses ready for consumer market",
+                  delay: 0.4
+                }
+              ].map((item, index) => (
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.1 * index }}
-                  className="mb-12 last:mb-0 relative"
+                  transition={{ delay: item.delay, duration: 0.5 }}
+                  className="ml-8 mb-8 relative"
                 >
-                  {/* Timeline dot */}
-                  <div className="absolute -left-[41px] w-6 h-6 rounded-full bg-white dark:bg-black border-4 border-orange-500 z-10"></div>
-                  
-                  {/* Year badge */}
-                  <div className="inline-block px-3 py-1 bg-orange-100 dark:bg-orange-900/30 rounded-full text-orange-600 dark:text-orange-400 text-sm font-medium mb-3">
-                    {event.year}
-                  </div>
-                  
-                  <h3 className="text-xl font-medium mb-2">{event.title}</h3>
-                  <p className="text-neutral-600 dark:text-neutral-400 font-light">
-                    {event.description}
-                  </p>
+                  <div className="absolute -left-8 top-0 w-4 h-4 rounded-full bg-sky-500 border-2 border-white dark:border-black"></div>
+                  <span className="inline-block bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 text-sm font-medium px-3 py-1 rounded-full mb-2">
+                    {item.year}
+                  </span>
+                  <h3 className="text-lg font-semibold mb-1">{item.title}</h3>
+                  <p className="text-neutral-600 dark:text-neutral-400 text-sm">{item.description}</p>
                 </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -1,7 +1,6 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
-import WaitlistSignup from "@/components/sections/WaitlistSignup";
 import FeatureShowcase from "@/components/sections/FeatureShowcase";
 import TechnicalSpecs from "@/components/sections/TechnicalSpecs";
 import UseCases from "@/components/sections/UseCases";
@@ -19,7 +18,6 @@ export default function Home() {
       <UseCases />
       <Testimonials />
       <FounderStory />
-      <WaitlistSignup />
       <FinalCTA />
       <Footer />
     </main>

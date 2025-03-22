@@ -1,17 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isOverDarkSection, setIsOverDarkSection] = useState(true);
   
   // Check if page is scrolled
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      
+      // Check if we're over the hero section (dark background) or a light section
+      // Adjust this threshold based on your hero section height
+      const heroThreshold = window.innerHeight * 0.8;
+      setIsOverDarkSection(window.scrollY < heroThreshold);
     };
     
     window.addEventListener("scroll", handleScroll);
@@ -26,6 +32,15 @@ const Header = () => {
     { title: "About", href: "#founder-story" },
   ];
   
+  // Define text color classes based on scroll position
+  const logoTextColorClass = isOverDarkSection 
+    ? "text-white" 
+    : "text-neutral-900 dark:text-white";
+  
+  const navLinkColorClass = isOverDarkSection 
+    ? "text-neutral-200 hover:text-sky-400" 
+    : "text-neutral-700 dark:text-neutral-300 hover:text-sky-500 dark:hover:text-sky-400";
+  
   return (
     <header 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
@@ -37,11 +52,13 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-orange-500 text-white overflow-hidden">
-            <span className="absolute font-bold text-sm">V</span>
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-600 to-orange-400 opacity-80"></div>
+          <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-sky-500 text-white overflow-hidden">
+            <span className="absolute font-bold text-sm">C</span>
+            <div className="absolute inset-0 bg-gradient-to-tr from-sky-600 to-sky-400 opacity-80"></div>
           </div>
-          <span className="ml-2 text-lg font-bold">Vision AR</span>
+          <span className={`ml-2 text-lg font-bold transition-colors duration-300 ${logoTextColorClass}`}>
+            Cleo
+          </span>
         </Link>
         
         {/* Desktop Navigation */}
@@ -50,7 +67,7 @@ const Header = () => {
             <Link
               key={link.title}
               href={link.href}
-              className="text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-orange-500 dark:hover:text-orange-400 transition-colors"
+              className={`text-sm font-medium transition-colors duration-300 ${navLinkColorClass}`}
             >
               {link.title}
             </Link>
@@ -60,8 +77,8 @@ const Header = () => {
         {/* Action Buttons */}
         <div className="hidden md:flex items-center space-x-4">
           <Link
-            href="#final-cta"
-            className="px-5 py-2 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-full text-sm transition-colors"
+            href="#waitlist"
+            className="px-5 py-2 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-full text-sm transition-colors"
           >
             Join Waitlist
           </Link>
@@ -70,7 +87,7 @@ const Header = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden flex items-center"
+          className={`md:hidden flex items-center transition-colors duration-300 ${isOverDarkSection ? 'text-white' : 'text-neutral-900 dark:text-white'}`}
           aria-label="Toggle menu"
         >
           <div className="relative w-6 h-5">
@@ -109,7 +126,7 @@ const Header = () => {
                   <Link
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block py-2 text-base font-medium text-neutral-700 dark:text-neutral-300 hover:text-orange-500 dark:hover:text-orange-400"
+                    className="block py-2 text-base font-medium text-neutral-700 dark:text-neutral-300 hover:text-sky-500 dark:hover:text-sky-400"
                   >
                     {link.title}
                   </Link>
@@ -117,9 +134,9 @@ const Header = () => {
               ))}
               <div className="pt-4 border-t border-neutral-100 dark:border-neutral-800">
                 <Link
-                  href="#final-cta"
+                  href="#waitlist"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-center w-full px-5 py-3 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-full text-sm transition-colors"
+                  className="flex items-center justify-center w-full px-5 py-3 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-full text-sm transition-colors"
                 >
                   Join Waitlist
                 </Link>

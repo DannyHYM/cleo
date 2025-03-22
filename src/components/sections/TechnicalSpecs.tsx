@@ -78,7 +78,7 @@ const TechnicalSpecs = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-3xl md:text-4xl font-bold mb-6 tracking-tight"
+            className="text-3xl md:text-4xl font-bold mb-6 tracking-tight text-neutral-600 dark:text-white"
           >
             Technical Specifications
           </motion.h2>
@@ -87,7 +87,7 @@ const TechnicalSpecs = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto font-light"
+            className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto font-medium"
           >
             Built with precision for uncompromising performance
           </motion.p>
@@ -128,8 +128,8 @@ const TechnicalSpecs = () => {
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[30px] h-[8px] bg-neutral-300 dark:bg-neutral-700"></div>
               
               {/* Detail element */}
-              <div className="absolute top-[35%] right-[30%] w-[16px] h-[16px] rounded-full border border-orange-600/50 flex items-center justify-center">
-                <div className="w-[8px] h-[8px] rounded-full bg-orange-600/30"></div>
+              <div className="absolute top-[35%] right-[30%] w-[16px] h-[16px] rounded-full border border-sky-600/50 flex items-center justify-center">
+                <div className="w-[8px] h-[8px] rounded-full bg-sky-600/30"></div>
               </div>
               
               {/* Spec points */}
@@ -146,8 +146,8 @@ const TechnicalSpecs = () => {
                   <button
                     className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${
                       activeSpec === point.id 
-                        ? 'bg-orange-600 scale-110' 
-                        : 'bg-neutral-200 dark:bg-neutral-700 hover:bg-orange-600/70'
+                        ? 'bg-sky-600 scale-110' 
+                        : 'bg-neutral-200 dark:bg-neutral-700 hover:bg-sky-600/70'
                     }`}
                     onClick={() => setActiveSpec(point.id === activeSpec ? null : point.id)}
                   >
@@ -155,7 +155,7 @@ const TechnicalSpecs = () => {
                   </button>
                   
                   {/* Connector line */}
-                  <div className={`absolute w-px h-16 bg-orange-600/50 transition-opacity duration-300 ${
+                  <div className={`absolute w-px h-16 bg-sky-600/50 transition-opacity duration-300 ${
                     activeSpec === point.id ? 'opacity-100' : 'opacity-0'
                   }`}></div>
                 </motion.div>
@@ -193,7 +193,7 @@ const TechnicalSpecs = () => {
                     <div className="flex items-center gap-4 mb-2">
                       <div className={`w-3 h-3 rounded-full ${
                         activeSpec === point.id 
-                          ? 'bg-orange-600' 
+                          ? 'bg-sky-600' 
                           : 'bg-neutral-300 dark:bg-neutral-700'
                       }`}></div>
                       <h4 className="text-lg font-medium">{point.title}</h4>

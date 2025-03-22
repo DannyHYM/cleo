@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 type Feature = {
   id: string;
@@ -13,69 +13,73 @@ type Feature = {
 
 const features: Feature[] = [
   {
-    id: "ar-display",
-    title: "Ultra-Clear Display",
-    description: "4K resolution micro-OLED displays with 120Hz refresh rate provide crystal clear augmented visuals with zero perceptible latency.",
-    iconPath: "M12 7a.75.75 0 01-.75.75h-1.5a.75.75 0 110-1.5h1.5A.75.75 0 0112 7zM12 10a.75.75 0 01-.75.75h-7.5a.75.75 0 010-1.5h7.5A.75.75 0 0112 10zM12 13a.75.75 0 01-.75.75h-7.5a.75.75 0 010-1.5h7.5A.75.75 0 0112 13zM12 16a.75.75 0 01-.75.75h-7.5a.75.75 0 010-1.5h7.5A.75.75 0 0112 16zM16.5 6.5h3a.5.5 0 01.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5V7a.5.5 0 01.5-.5zM16.5 13.5h3a.5.5 0 01.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5z",
+    id: "feature-1",
+    title: "Spatial Computing",
+    description: "Interact with digital content naturally in your physical space with advanced object recognition and placement.",
+    iconPath: "M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64",
     delay: 0.1,
   },
   {
-    id: "sensors",
-    title: "Advanced Sensors",
-    description: "6-axis motion tracking, depth sensors, and environment mapping create a seamless blend between digital and physical worlds.",
-    iconPath: "M4 5.5A1.5 1.5 0 015.5 4h13A1.5 1.5 0 0120 5.5v1A1.5 1.5 0 0118.5 8h-13A1.5 1.5 0 014 6.5v-1zM4 13.5A1.5 1.5 0 015.5 12h13a1.5 1.5 0 011.5 1.5v1a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 014 14.5v-1z",
+    id: "feature-2",
+    title: "Retina Display",
+    description: "Experience stunning 4K resolution with 120Hz refresh rate and HDR support for crystal-clear visuals.",
+    iconPath: "M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z M15 12a3 3 0 11-6 0 3 3 0 016 0z",
     delay: 0.2,
   },
   {
-    id: "battery",
-    title: "All-Day Battery",
-    description: "Advanced power management and custom silicon deliver 8+ hours of continuous use on a single charge.",
-    iconPath: "M3.75 6.75a3 3 0 00-3 3v6a3 3 0 003 3h15a3 3 0 003-3v-.037c.856-.174 1.5-.93 1.5-1.838v-2.25c0-.907-.644-1.664-1.5-1.837V9.75a3 3 0 00-3-3h-15zm15 1.5a1.5 1.5 0 011.5 1.5v6a1.5 1.5 0 01-1.5 1.5h-15a1.5 1.5 0 01-1.5-1.5v-6a1.5 1.5 0 011.5-1.5h15zM4.5 9.75a.75.75 0 00-.75.75V15c0 .414.336.75.75.75H18a.75.75 0 00.75-.75v-4.5a.75.75 0 00-.75-.75H4.5z",
+    id: "feature-3",
+    title: "Contextual Awareness",
+    description: "Our AI recognizes your environment and provides relevant information exactly when you need it.",
+    iconPath: "M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z",
     delay: 0.3,
   },
   {
-    id: "design",
-    title: "Premium Design",
-    description: "Precision-milled aluminum frame with adjustable titanium temples provides exceptional comfort for all-day wear.",
-    iconPath: "M11.25 4.533A9.707 9.707 0 006 3a9.735 9.735 0 00-3.25.555.75.75 0 00-.5.707v14.25a.75.75 0 001 .707A8.237 8.237 0 016 18.75c1.995 0 3.823.707 5.25 1.886V4.533zM12.75 20.636A8.214 8.214 0 0118 18.75c.966 0 1.89.166 2.75.47a.75.75 0 001-.708V4.262a.75.75 0 00-.5-.707A9.735 9.735 0 0018 3a9.707 9.707 0 00-5.25 1.533v16.103z",
+    id: "feature-4",
+    title: "Voice Control",
+    description: "Control your experience with natural voice commands using our advanced speech recognition system.",
+    iconPath: "M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z",
     delay: 0.4,
   },
   {
-    id: "audio",
-    title: "Spatial Audio",
-    description: "Directional speakers and beamforming microphones create an immersive audio experience without isolating you from your surroundings.",
-    iconPath: "M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z",
+    id: "feature-5",
+    title: "Adaptive Brightness",
+    description: "Automatic brightness adjustment ensures optimal visibility in any lighting condition, day or night.",
+    iconPath: "M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18",
     delay: 0.5,
   },
   {
-    id: "ai",
-    title: "AI Companion",
-    description: "Advanced neural processing unit provides intelligent contextual awareness and predictive assistance for your daily activities.",
-    iconPath: "M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z",
+    id: "feature-6",
+    title: "All-Day Battery",
+    description: "Enjoy up to 8 hours of active use with our advanced power management and fast charging capability.",
+    iconPath: "M21 10.5h.375c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125H21M4.5 10.5H18V15H4.5v-4.5zM3.75 18h15A2.25 2.25 0 0021 15.75v-6a2.25 2.25 0 00-2.25-2.25h-15A2.25 2.25 0 001.5 9.75v6A2.25 2.25 0 003.75 18z",
     delay: 0.6,
   },
 ];
 
 const FeatureShowcase = () => {
-  const [activeFeature, setActiveFeature] = useState<string | null>(null);
-
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+  
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "5%"]);
+  
   return (
-    <section className="py-28 px-4 md:px-6 bg-white dark:bg-[#0A0A0A] relative overflow-hidden">
+    <section id="features" className="py-28 px-4 md:px-6 bg-white dark:bg-black relative overflow-hidden">
       {/* Background elements */}
-      <div className="absolute inset-0 z-0 opacity-40">
-        <div className="absolute h-px w-full top-0 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-800 to-transparent"></div>
-        <div className="absolute h-px w-full bottom-0 bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-800 to-transparent"></div>
-        <div className="absolute w-px h-full left-1/4 bg-gradient-to-b from-transparent via-neutral-300/30 dark:via-neutral-800/30 to-transparent"></div>
-        <div className="absolute w-px h-full right-1/4 bg-gradient-to-b from-transparent via-neutral-300/30 dark:via-neutral-800/30 to-transparent"></div>
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute -top-[10%] -right-[10%] w-[40%] h-[40%] bg-gradient-to-br from-sky-100/30 dark:from-sky-900/10 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-[10%] -left-[10%] w-[40%] h-[40%] bg-gradient-to-tr from-sky-100/30 dark:from-sky-900/10 to-transparent rounded-full blur-3xl"></div>
+        
+        {/* Grid pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.01)_1px,transparent_1px),linear-gradient(to_right,rgba(0,0,0,0.01)_1px,transparent_1px)] bg-[size:4rem_4rem] dark:bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px)]"></div>
       </div>
-
-      <div className="max-w-7xl mx-auto relative">
+      
+      <div ref={containerRef} className="max-w-7xl mx-auto relative z-10">
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          style={{ y }}
+          className="text-center mb-20"
         >
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -84,7 +88,7 @@ const FeatureShowcase = () => {
             transition={{ duration: 0.5 }}
             className="text-3xl md:text-4xl font-bold mb-6 tracking-tight"
           >
-            Advanced Features
+            Cutting-Edge Features
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -93,72 +97,45 @@ const FeatureShowcase = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto font-light"
           >
-            Precision engineering meets cutting-edge technology
+            Your Personal AI Trainer. No Phones, No Interruptions, Just Results.
           </motion.p>
         </motion.div>
-
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature) => (
             <motion.div
               key={feature.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: feature.delay }}
-              className="relative"
+              whileHover={{ 
+                y: -5,
+                transition: { duration: 0.2 }
+              }}
+              className="bg-neutral-50 dark:bg-neutral-900 rounded-2xl p-8 border border-neutral-100 dark:border-neutral-800 hover:border-sky-200 dark:hover:border-sky-800 transition-colors shadow-sm group"
             >
-              <div 
-                className={`bg-neutral-50 dark:bg-neutral-900 rounded-2xl p-8 border border-neutral-100 dark:border-neutral-800 transition-all duration-300 h-full ${
-                  activeFeature === feature.id ? 'scale-[1.02] shadow-lg' : 'hover:scale-[1.01] hover:shadow-md'
-                }`}
-                onMouseEnter={() => setActiveFeature(feature.id)}
-                onMouseLeave={() => setActiveFeature(null)}
-              >
-                <div className="flex items-center justify-between mb-5">
-                  <div className="w-12 h-12 rounded-xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center">
-                    <svg 
-                      className="w-6 h-6 text-orange-600"
-                      fill="currentColor" 
-                      viewBox="0 0 24 24" 
-                      width="24" 
-                      height="24"
-                    >
-                      <path d={feature.iconPath} />
-                    </svg>
-                  </div>
-                  <div 
-                    className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      activeFeature === feature.id ? 'bg-orange-600 rotate-180' : 'bg-neutral-200 dark:bg-neutral-800'
-                    }`}
+              <div className="mb-5 relative">
+                <div className="w-12 h-12 rounded-lg bg-sky-100 dark:bg-sky-950 flex items-center justify-center text-sky-600 dark:text-sky-400 group-hover:bg-sky-200 dark:group-hover:bg-sky-900 transition-colors">
+                  <svg 
+                    className="w-6 h-6"
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="1.5" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
                   >
-                    <svg 
-                      width="14" 
-                      height="14" 
-                      viewBox="0 0 14 14" 
-                      fill="none" 
-                      xmlns="http://www.w3.org/2000/svg"
-                      className={`transition-all duration-300 ${
-                        activeFeature === feature.id ? 'text-white' : 'text-neutral-500 dark:text-neutral-400'
-                      }`}
-                    >
-                      <path 
-                        d="M7 3V11M3 7H11" 
-                        stroke="currentColor" 
-                        strokeWidth="2" 
-                        strokeLinecap="round" 
-                      />
-                    </svg>
-                  </div>
+                    <path d={feature.iconPath} />
+                  </svg>
                 </div>
                 
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                
-                <div className={`overflow-hidden transition-all duration-300 ${
-                  activeFeature === feature.id ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'
-                }`}>
-                  <p className="text-neutral-600 dark:text-neutral-400 font-light">{feature.description}</p>
-                </div>
+                {/* Line connector */}
+                <div className="absolute w-8 h-px bg-neutral-200 dark:bg-neutral-700 right-0 top-1/2 transform translate-x-full group-hover:bg-sky-300 dark:group-hover:bg-sky-700 transition-colors hidden lg:block"></div>
               </div>
+              
+              <h3 className="text-xl font-semibold mb-3 group-hover:text-sky-700 dark:group-hover:text-sky-400 transition-colors">{feature.title}</h3>
+              <p className="text-neutral-600 dark:text-neutral-400 font-light">{feature.description}</p>
             </motion.div>
           ))}
         </div>

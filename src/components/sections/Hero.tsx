@@ -1,173 +1,224 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Set canvas dimensions
+    const updateCanvasSize = () => {
+      const container = containerRef.current;
+      if (!container) return;
+      
+      canvas.width = container.offsetWidth;
+      canvas.height = container.offsetHeight;
+    };
+
+    updateCanvasSize();
+    window.addEventListener('resize', updateCanvasSize);
+
+    // Ripple class
+    class Ripple {
+      x: number;
+      y: number;
+      radius: number;
+      maxRadius: number;
+      opacity: number;
+      color: string;
+      
+      constructor(x: number, y: number) {
+        this.x = x;
+        this.y = y;
+        this.radius = 1;
+        this.maxRadius = Math.random() * 120 + 80;
+        this.opacity = 1;
+        this.color = `rgba(14, 165, 233, ${this.opacity})`; // sky-500 color
+      }
+      
+      update() {
+        if (this.radius < this.maxRadius) {
+          this.radius += 1.2;
+          this.opacity = 1 - (this.radius / this.maxRadius);
+          this.color = `rgba(14, 165, 233, ${this.opacity * 0.4})`;
+          return true;
+        }
+        return false;
+      }
+      
+      draw(ctx: CanvasRenderingContext2D) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = this.color;
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      }
+    }
+
+    // Ripples array and animation
+    let ripples: Ripple[] = [];
+    let animationFrameId: number;
+
+    // Add ripples on cursor move
     const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current) return;
       
-      const { clientX, clientY } = e;
       const rect = containerRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
       
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+      setCursorPos({ x, y });
       
-      const moveX = (clientX - centerX) / 25;
-      const moveY = (clientY - centerY) / 25;
-      
-      const elements = containerRef.current.querySelectorAll('[data-parallax]');
-      
-      elements.forEach((el) => {
-        const htmlEl = el as HTMLElement;
-        const speedX = parseFloat(htmlEl.dataset.speedX || "1");
-        const speedY = parseFloat(htmlEl.dataset.speedY || "1");
-        
-        htmlEl.style.transform = `translate(${moveX * speedX}px, ${moveY * speedY}px)`;
-      });
+      // Only add ripple occasionally to avoid too many
+      if (Math.random() > 0.85) {
+        ripples.push(new Ripple(x, y));
+      }
     };
+
+    // Add ripple on click
+    const handleClick = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // Add multiple ripples on click
+      for (let i = 0; i < 3; i++) {
+        const offset = Math.random() * 20 - 10;
+        ripples.push(new Ripple(x + offset, y + offset));
+      }
+    };
+
+    // Animation function
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Update and draw ripples
+      ripples = ripples.filter(ripple => {
+        ripple.draw(ctx);
+        return ripple.update();
+      });
+      
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    // Start animation
+    animate();
     
-    window.addEventListener("mousemove", handleMouseMove);
-    
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    // Add mouse events
+    containerRef.current?.addEventListener('mousemove', handleMouseMove);
+    containerRef.current?.addEventListener('click', handleClick);
+
+    // Add automatic ripples
+    const autoRippleInterval = setInterval(() => {
+      if (canvas.width > 0 && canvas.height > 0) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        ripples.push(new Ripple(x, y));
+      }
+    }, 1500);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', updateCanvasSize);
+      containerRef.current?.removeEventListener('mousemove', handleMouseMove);
+      containerRef.current?.removeEventListener('click', handleClick);
+      cancelAnimationFrame(animationFrameId);
+      clearInterval(autoRippleInterval);
+    };
   }, []);
 
   return (
     <section 
       ref={containerRef}
-      className="relative h-screen w-full flex flex-col items-center justify-center px-4 overflow-hidden"
+      className="relative min-h-screen w-full flex flex-col items-center justify-center px-4 overflow-hidden pt-24 pb-24"
     >
-      {/* Background elements */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-40 left-[15%] w-64 h-64 bg-orange-600/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-40 right-[15%] w-72 h-72 bg-orange-600/5 rounded-full blur-3xl" />
-        <div className="absolute top-[30%] right-[25%] w-20 h-20 bg-orange-500/10 rounded-full blur-xl" />
-        <div className="absolute bottom-[35%] left-[30%] w-32 h-32 bg-orange-500/10 rounded-full blur-xl" />
-      </div>
-      
-      {/* Product image */}
-      <motion.div 
-        className="relative w-full max-w-2xl mx-auto mb-16"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        data-parallax
-        data-speed-x="1.5"
-        data-speed-y="1.5"
-      >
-        <div className="w-full h-[300px] md:h-[380px] bg-neutral-100 dark:bg-neutral-900 rounded-3xl shadow-lg relative overflow-hidden">
-          <div className="absolute inset-0 flex items-center justify-center">
-            {/* Product elements */}
-            <div className="absolute w-[380px] h-[2px] bg-neutral-200 dark:bg-neutral-800 top-1/2 transform -translate-y-1/2"></div>
-            <div className="absolute w-[2px] h-[380px] bg-neutral-200 dark:bg-neutral-800 left-1/2 transform -translate-x-1/2"></div>
-            
-            {/* Main lens circle */}
-            <div className="absolute w-[180px] h-[180px] rounded-full border-[12px] border-neutral-200 dark:border-neutral-800 flex items-center justify-center">
-              <div className="w-[120px] h-[120px] rounded-full bg-neutral-300 dark:bg-neutral-700 shadow-inner"></div>
-              <div className="absolute w-[140px] h-[140px] rounded-full border border-orange-500 opacity-20"></div>
-              <div className="absolute w-[100px] h-[100px] rounded-full border border-orange-600 opacity-30"></div>
-            </div>
-            
-            {/* Side controls */}
-            <div className="absolute right-[30%] top-[35%] w-12 h-12 rounded-full bg-neutral-200 dark:bg-neutral-800 shadow-lg">
-              <div className="absolute inset-[3px] rounded-full bg-white dark:bg-neutral-950">
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-[2px] bg-orange-600 rounded-full"></div>
-              </div>
-            </div>
-            
-            <div className="absolute left-[30%] bottom-[35%] w-8 h-8 rounded-sm bg-neutral-200 dark:bg-neutral-800 shadow-md">
-              <div className="absolute inset-[2px] rounded-sm bg-white dark:bg-neutral-950">
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-orange-600"></div>
-              </div>
-            </div>
-            
-            {/* Subtle lighting effect */}
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white to-transparent opacity-30"></div>
-            
-            {/* Product label - more subtle */}
-            <div className="absolute bottom-5 right-5 text-xs font-bold tracking-widest text-neutral-400 dark:text-neutral-600">VISION AR.01</div>
-          </div>
-        </div>
-      </motion.div>
+      {/* Ripple effect canvas */}
+      <canvas 
+        ref={canvasRef} 
+        className="absolute inset-0 z-0 bg-gradient-to-b from-black to-neutral-900"
+      />
       
       {/* Hero content */}
-      <motion.div 
-        className="text-center z-10 max-w-3xl"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <motion.h1 
-          className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-        >
-          The Future Is In <span className="text-orange-600">Sight</span>
-        </motion.h1>
-        
-        <motion.p 
-          className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 mb-10 max-w-2xl mx-auto font-light"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          Experience reality enhanced with our precisely engineered AR glasses. Clean design meets revolutionary technology.
-        </motion.p>
-        
-        <motion.div
+      <div className="flex flex-col items-center justify-center z-10 w-full">
+        {/* Product image - using AR render image */}
+        <motion.div 
+          className="relative w-full max-w-3xl mx-auto mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-5 relative"
+          transition={{ duration: 0.8, delay: 0.2 }}
         >
-          {/* Remove animated glow effect */}
-          
-          <Button 
-            variant="primary" 
-            size="lg"
-            className="rounded-full px-8 py-6 text-base font-medium tracking-wide"
-            onClick={() => {
-              const waitlistSection = document.getElementById("waitlist");
-              if (waitlistSection) {
-                waitlistSection.scrollIntoView({ behavior: "smooth" });
-              }
-            }}
-          >
-            Join the Waitlist
-          </Button>
-          <Button 
-            variant="outline" 
-            size="lg"
-            className="rounded-full px-8 py-6 text-base font-medium tracking-wide border-neutral-300 dark:border-neutral-700"
-          >
-            Learn More
-          </Button>
+          <div className="relative w-full aspect-[16/9] rounded-3xl shadow-lg overflow-hidden">
+            <Image
+              src="/ARRender.png"
+              alt="Vision AR Glasses"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1100px"
+              className="object-contain"
+            />
+          </div>
         </motion.div>
-      </motion.div>
-      
-      {/* Scroll indicator */}
-      <motion.div 
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ 
-          duration: 0.6, 
-          delay: 1,
-          repeat: Infinity,
-          repeatType: "reverse",
-          repeatDelay: 0.5
-        }}
-      >
-        <div className="w-6 h-10 border-2 border-neutral-400 dark:border-neutral-600 rounded-full flex justify-center">
-          <div className="w-1.5 h-3 bg-orange-600 rounded-full mt-2 animate-pulse" />
-        </div>
-      </motion.div>
+        
+        {/* Text content */}
+        <motion.div 
+          className="text-center z-10 max-w-3xl"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <motion.h1 
+            className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-6 text-white"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            The Future is in <span className="text-sky-500">Sight</span>
+          </motion.h1>
+          
+          <motion.p 
+            className="text-xl md:text-2xl text-neutral-300 mb-10 max-w-2xl mx-auto font-light"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            World's first AI-powered smart fitness glasses. 
+          </motion.p>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex items-center justify-center relative mb-12"
+          >
+            <Button 
+              variant="primary" 
+              size="lg"
+              className="rounded-full px-10 py-6 text-base font-medium tracking-wide bg-sky-600 hover:bg-sky-700"
+              onClick={() => {
+                const featuresSection = document.getElementById("features");
+                if (featuresSection) {
+                  featuresSection.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
+              Discover
+            </Button>
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 };

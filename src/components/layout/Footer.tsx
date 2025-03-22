@@ -122,11 +122,11 @@ const Footer = () => {
           {/* Logo and description */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center mb-6">
-              <div className="relative flex items-center justify-center w-10 h-10 mr-3 rounded-full bg-orange-500 text-white overflow-hidden">
-                <span className="absolute font-bold text-lg">V</span>
-                <div className="absolute inset-0 bg-gradient-to-tr from-orange-600 to-orange-400 opacity-80"></div>
+              <div className="relative flex items-center justify-center w-10 h-10 mr-3 rounded-full bg-sky-500 text-white overflow-hidden">
+                <span className="absolute font-bold text-lg">C</span>
+                <div className="absolute inset-0 bg-gradient-to-tr from-sky-600 to-sky-400 opacity-80"></div>
               </div>
-              <span className="text-xl font-bold">Vision AR</span>
+              <span className="text-xl font-bold">Cleo</span>
             </Link>
             <p className="text-neutral-600 dark:text-neutral-400 text-sm mb-6 font-light">
               Redefining how we see and interact with digital information in our physical world.
@@ -138,7 +138,7 @@ const Footer = () => {
                 <motion.a
                   key={item.name}
                   href={item.href}
-                  className="text-neutral-500 dark:text-neutral-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-200"
+                  className="text-neutral-500 dark:text-neutral-400 hover:text-sky-500 dark:hover:text-sky-400 transition-colors duration-200"
                   whileHover={{ 
                     scale: 1.1,
                     transition: { duration: 0.2 }
@@ -162,7 +162,7 @@ const Footer = () => {
                   <li key={link.title}>
                     <Link
                       href={link.href}
-                      className="text-neutral-500 dark:text-neutral-400 hover:text-orange-500 dark:hover:text-orange-400 text-sm font-light transition-colors duration-200 flex items-center"
+                      className="text-neutral-500 dark:text-neutral-400 hover:text-sky-500 dark:hover:text-sky-400 text-sm font-light transition-colors duration-200 flex items-center"
                       target={link.isExternal ? "_blank" : undefined}
                       rel={link.isExternal ? "noopener noreferrer" : undefined}
                     >
@@ -182,9 +182,9 @@ const Footer = () => {
         
         {/* Bottom section */}
         <div className="border-t border-neutral-200 dark:border-neutral-800 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-neutral-500 dark:text-neutral-400 text-sm mb-4 md:mb-0">
-            © 2024 Vision AR. All rights reserved.
-          </p>
+          <div className="mt-8 text-center text-neutral-500 text-sm">
+            © 2024 Cleo. All rights reserved.
+          </div>
           
           <div className="flex items-center space-x-4">
             <span className="text-xs text-neutral-500 dark:text-neutral-400 flex items-center">

@@ -2,12 +2,17 @@
 
 import { motion } from "framer-motion";
 
+type Benefit = {
+  text: string;
+  delay: number;
+};
+
 type UseCase = {
   id: string;
   title: string;
   description: string;
   iconPath: string;
-  benefits: string[];
+  benefits: Benefit[];
   imagePosition: "left" | "right";
   bgColor: string;
   delay: number;
@@ -17,116 +22,169 @@ const useCases: UseCase[] = [
   {
     id: "productivity",
     title: "Enhanced Productivity",
-    description: "Transform how you work with contextual information and hands-free computing.",
-    iconPath: "M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z",
+    description: "Transform how you work with hands-free computing and contextual information.",
+    iconPath: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
     benefits: [
-      "Access real-time data while keeping your hands free",
-      "Smart notifications filter only what matters now",
-      "Contextual information based on what you're working on"
+      { text: "Hands-free task management", delay: 0.1 },
+      { text: "Contextual information display", delay: 0.2 },
+      { text: "Real-time collaboration tools", delay: 0.3 },
     ],
     imagePosition: "right",
-    bgColor: "bg-blue-50 dark:bg-blue-950/30",
+    bgColor: "bg-sky-50 dark:bg-sky-950/20",
     delay: 0.1,
   },
   {
     id: "navigation",
     title: "Intuitive Navigation",
-    description: "Navigate unfamiliar environments with confidence using AR guidance overlays.",
-    iconPath: "M15 10.5a3 3 0 11-6 0 3 3 0 016 0z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z",
+    description: "Never get lost again with AR guidance overlays for indoor and outdoor navigation.",
+    iconPath: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7",
     benefits: [
-      "Turn-by-turn directions in your field of view",
-      "Points of interest highlighted as you explore",
-      "Offline maps for remote areas"
+      { text: "Turn-by-turn AR directions", delay: 0.1 },
+      { text: "Location-based information", delay: 0.2 },
+      { text: "Indoor mapping and guidance", delay: 0.3 },
     ],
     imagePosition: "left",
-    bgColor: "bg-emerald-50 dark:bg-emerald-950/30",
-    delay: 0.2,
+    bgColor: "bg-sky-100/50 dark:bg-sky-900/10",
+    delay: 0.3,
   },
   {
     id: "communication",
     title: "Seamless Communication",
-    description: "Stay connected without distractions through natural interaction with digital content.",
-    iconPath: "M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155",
+    description: "Interact naturally with digital content and stay connected with immersive presence.",
+    iconPath: "M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z",
     benefits: [
-      "Spatial audio for natural conversation flow",
-      "Real-time translation overlays for 12+ languages",
-      "Facial recognition to never forget a name"
+      { text: "Holographic video calling", delay: 0.1 },
+      { text: "Shared AR experiences", delay: 0.2 },
+      { text: "Visual message annotations", delay: 0.3 },
     ],
     imagePosition: "right",
-    bgColor: "bg-purple-50 dark:bg-purple-950/30",
-    delay: 0.3,
+    bgColor: "bg-sky-50 dark:bg-sky-950/20",
+    delay: 0.5,
   },
 ];
 
 const UseCaseCard = ({ useCase }: { useCase: UseCase }) => {
-  const isLeftImage = useCase.imagePosition === "left";
+  const isRightImage = useCase.imagePosition === "right";
   
   return (
-    <motion.div 
-      className={`rounded-2xl overflow-hidden mb-16 ${useCase.bgColor}`}
-      initial={{ opacity: 0, y: 40 }}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: useCase.delay }}
+      className={`flex flex-col ${isRightImage ? "md:flex-row" : "md:flex-row-reverse"} gap-8 md:gap-12 p-6 md:p-8 rounded-2xl ${useCase.bgColor} mb-12 md:mb-20`}
     >
-      <div className={`flex flex-col ${isLeftImage ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center`}>
-        {/* Image/illustration area */}
-        <div className="lg:w-1/2 p-8 lg:p-12">
-          <div className="h-[300px] rounded-xl bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm border border-neutral-200 dark:border-neutral-800 flex items-center justify-center relative overflow-hidden">
-            <div className="absolute inset-0 flex items-center justify-center">
-              {/* Circular gradient */}
-              <div className="absolute w-[200px] h-[200px] rounded-full bg-gradient-to-tr from-orange-500/20 to-transparent"></div>
-              
-              {/* Simple illustration */}
-              <div className="relative">
-                <svg 
-                  className="w-20 h-20 text-orange-600/70"
-                  viewBox="0 0 24 24" 
-                  fill="none"
-                  stroke="currentColor" 
-                  strokeWidth="1.5" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                >
-                  <path d={useCase.iconPath} />
-                </svg>
-              </div>
-            </div>
-            
-            {/* Grid overlay */}
-            <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:20px_20px] dark:bg-[linear-gradient(0deg,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)]"></div>
+      {/* Content */}
+      <div className="flex-1 flex flex-col justify-center">
+        <div className="flex items-center mb-4">
+          <div className="w-10 h-10 rounded-full bg-sky-500/10 flex items-center justify-center mr-4">
+            <svg className="w-5 h-5 text-sky-600 dark:text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={useCase.iconPath} />
+            </svg>
           </div>
+          <h3 className="text-2xl font-bold">{useCase.title}</h3>
         </div>
         
-        {/* Content area */}
-        <div className="lg:w-1/2 p-8 lg:p-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h3 className="text-2xl font-bold mb-4">{useCase.title}</h3>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 font-light">{useCase.description}</p>
+        <p className="text-neutral-600 dark:text-neutral-400 mb-6">{useCase.description}</p>
+        
+        <ul className="space-y-3">
+          {useCase.benefits.map((benefit, index) => (
+            <motion.li
+              key={index}
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: useCase.delay + benefit.delay }}
+              className="flex items-start"
+            >
+              <svg className="w-5 h-5 text-sky-600 dark:text-sky-400 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              <span className="text-neutral-700 dark:text-neutral-300">{benefit.text}</span>
+            </motion.li>
+          ))}
+        </ul>
+      </div>
+      
+      {/* Image */}
+      <div className="flex-1">
+        <div className="aspect-video rounded-xl bg-gradient-to-br from-sky-400/10 to-sky-600/20 p-6 flex items-center justify-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),transparent_70%)]"></div>
+          
+          {/* Simplified mockup of an AR interface */}
+          <div className="w-full max-w-md relative">
+            {/* AR interface frame */}
+            <div className="absolute inset-0 border-2 border-sky-500/20 rounded-xl"></div>
             
-            <ul className="space-y-4">
-              {useCase.benefits.map((benefit, index) => (
-                <motion.li 
-                  key={index}
-                  initial={{ opacity: 0, x: isLeftImage ? 20 : -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.1 * index }}
-                  className="flex items-start gap-3"
-                >
-                  <div className="w-5 h-5 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mt-1">
-                    <div className="w-2 h-2 rounded-full bg-orange-600"></div>
+            {/* UI Elements */}
+            <div className="h-full flex flex-col">
+              {/* Top bar */}
+              <div className="h-10 border-b border-sky-500/20 flex items-center px-4">
+                <div className="w-3 h-3 rounded-full bg-sky-500/30 mr-2"></div>
+                <div className="w-20 h-2 bg-sky-500/20 rounded-full"></div>
+                <div className="ml-auto flex items-center space-x-2">
+                  <div className="w-8 h-2 bg-sky-500/20 rounded-full"></div>
+                  <div className="w-2 h-2 rounded-full bg-sky-500/40"></div>
+                </div>
+              </div>
+              
+              {/* Content area */}
+              <div className="flex-1 p-4 flex">
+                {useCase.id === "productivity" && (
+                  <div className="w-full grid grid-cols-2 gap-4">
+                    <div className="h-20 bg-sky-500/10 rounded-lg p-2">
+                      <div className="w-12 h-2 bg-sky-500/30 rounded-full mb-2"></div>
+                      <div className="w-full h-10 bg-sky-500/20 rounded-lg"></div>
+                    </div>
+                    <div className="h-20 bg-sky-500/5 rounded-lg p-2">
+                      <div className="w-8 h-2 bg-sky-500/30 rounded-full mb-2"></div>
+                      <div className="w-full h-10 bg-sky-500/10 rounded-lg"></div>
+                    </div>
+                    <div className="h-20 bg-sky-500/5 rounded-lg p-2">
+                      <div className="w-10 h-2 bg-sky-500/30 rounded-full mb-2"></div>
+                      <div className="w-full h-10 bg-sky-500/10 rounded-lg"></div>
+                    </div>
+                    <div className="h-20 bg-sky-500/10 rounded-lg p-2">
+                      <div className="w-14 h-2 bg-sky-500/30 rounded-full mb-2"></div>
+                      <div className="w-full h-10 bg-sky-500/20 rounded-lg"></div>
+                    </div>
                   </div>
-                  <span className="text-neutral-700 dark:text-neutral-300">{benefit}</span>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
+                )}
+                
+                {useCase.id === "navigation" && (
+                  <div className="w-full relative">
+                    <div className="absolute inset-0 bg-sky-500/5 rounded-lg"></div>
+                    <div className="absolute left-1/2 top-1/4 w-4 h-4 bg-sky-500/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+                    <div className="absolute right-1/4 bottom-1/3 w-3 h-3 bg-sky-500/30 rounded-full"></div>
+                    <div className="absolute left-1/4 bottom-1/4 w-3 h-3 bg-sky-500/20 rounded-full"></div>
+                    <div className="absolute left-1/3 top-1/2 w-16 h-2 bg-sky-500/40 rounded-full"></div>
+                    <div className="absolute right-1/4 top-1/3 w-12 h-2 bg-sky-500/30 rounded-full"></div>
+                  </div>
+                )}
+                
+                {useCase.id === "communication" && (
+                  <div className="w-full flex items-center justify-center">
+                    <div className="w-32 h-32 rounded-full bg-sky-500/10 flex items-center justify-center">
+                      <div className="w-24 h-24 rounded-full bg-sky-500/20 flex items-center justify-center">
+                        <div className="w-16 h-16 rounded-full bg-sky-500/30 flex items-center justify-center">
+                          <svg className="w-8 h-8 text-sky-500/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              {/* Bottom bar */}
+              <div className="h-10 border-t border-sky-500/20 flex items-center justify-center space-x-4 px-4">
+                <div className="w-4 h-4 rounded-full bg-sky-500/30"></div>
+                <div className="w-12 h-2 bg-sky-500/20 rounded-full"></div>
+                <div className="w-4 h-4 rounded-full bg-sky-500/20"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -135,37 +193,25 @@ const UseCaseCard = ({ useCase }: { useCase: UseCase }) => {
 
 const UseCases = () => {
   return (
-    <section id="use-cases" className="py-28 px-4 md:px-6 bg-white dark:bg-[#0A0A0A]">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
+    <section id="use-cases" className="py-24 px-4 md:px-6 overflow-hidden relative">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800A_1px,transparent_1px),linear-gradient(to_bottom,#8080800A_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      
+      <div className="max-w-7xl mx-auto">
+        <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-3xl md:text-4xl font-bold mb-6 tracking-tight"
-          >
-            Transform Your Daily Experience
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto font-light"
-          >
-            Discover how Vision AR glasses seamlessly integrate into your life
-          </motion.p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Use Cases & Benefits</h2>
+          <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
+            Discover how Cleo glasses seamlessly integrate into your daily life, enhancing how you work, navigate, and communicate.
+          </p>
         </motion.div>
         
-        <div className="space-y-12">
-          {useCases.map(useCase => (
+        <div>
+          {useCases.map((useCase) => (
             <UseCaseCard key={useCase.id} useCase={useCase} />
           ))}
         </div>

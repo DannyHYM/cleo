@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { WaitlistForm } from "@/components/sections/WaitlistForm";
 
 const FinalCTA = () => {
   const [email, setEmail] = useState("");
@@ -34,160 +35,88 @@ const FinalCTA = () => {
   };
   
   return (
-    <section id="final-cta" className="py-32 px-4 md:px-6 bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-950 dark:to-black relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-800 to-transparent"></div>
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-800 to-transparent"></div>
-      
-      {/* Animated background shapes */}
-      <div className="absolute top-20 left-20 w-72 h-72 bg-orange-600/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-orange-600/5 rounded-full blur-3xl"></div>
-      
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          {/* Urgency indicator */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="inline-block px-4 py-2 bg-orange-100 dark:bg-orange-900/30 rounded-full text-orange-600 dark:text-orange-400 text-sm font-medium mb-6"
-          >
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
-              </span>
-              Limited First Batch — Launching Soon
-            </div>
-          </motion.div>
-          
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold mb-6 tracking-tight"
-          >
-            Be Among the First to <br className="hidden md:block" />
-            <span className="text-orange-600 dark:text-orange-500">Experience Vision AR</span>
-          </motion.h2>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg md:text-xl text-neutral-600 dark:text-neutral-400 mb-8 font-light"
-          >
-            Join our exclusive waitlist today. Early supporters will receive priority access
-            and special pricing when we launch.
-          </motion.p>
-          
-          {/* Countdown */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex justify-center gap-4 mb-10"
-          >
-            <div className="flex flex-col items-center">
-              <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl px-4 py-3 min-w-[80px]">
-                <span className="text-3xl font-bold">37</span>
-              </div>
-              <span className="text-sm text-neutral-500 dark:text-neutral-400 mt-2">Days</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl px-4 py-3 min-w-[80px]">
-                <span className="text-3xl font-bold">12</span>
-              </div>
-              <span className="text-sm text-neutral-500 dark:text-neutral-400 mt-2">Hours</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl px-4 py-3 min-w-[80px]">
-                <span className="text-3xl font-bold">45</span>
-              </div>
-              <span className="text-sm text-neutral-500 dark:text-neutral-400 mt-2">Minutes</span>
-            </div>
-          </motion.div>
-          
-          {/* Signup form */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="max-w-md mx-auto"
-          >
-            <form onSubmit={handleSubmit}>
-              <div className="flex flex-col sm:flex-row gap-2 mb-2">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email address"
-                  disabled={isSubmitting || isSubmitted}
-                  className="flex-grow px-4 py-3 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                />
-                <button
-                  type="submit"
-                  disabled={isSubmitting || isSubmitted}
-                  className={`px-6 py-3 font-medium text-white rounded-lg ${
-                    isSubmitted
-                      ? "bg-green-600"
-                      : "bg-orange-600 hover:bg-orange-700 dark:bg-orange-600 dark:hover:bg-orange-700"
-                  } transition-colors duration-200 ease-in-out flex items-center justify-center min-w-[120px]`}
-                >
-                  {isSubmitting ? (
-                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                  ) : isSubmitted ? (
-                    <span className="flex items-center">
-                      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                      Joined
-                    </span>
-                  ) : (
-                    "Join Waitlist"
-                  )}
-                </button>
-              </div>
-              {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-              {isSubmitted && (
-                <p className="text-green-600 dark:text-green-400 text-sm mt-1">
-                  Thank you! You've been added to our waitlist.
-                </p>
-              )}
-              <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-3">
-                By joining, you agree to our Terms of Service and Privacy Policy. We'll keep you updated on our progress.
-              </p>
-            </form>
-          </motion.div>
-        </div>
-        
-        {/* Social proof */}
+    <section id="waitlist" className="py-24 px-4 md:px-6 bg-gradient-to-b from-sky-50 to-white dark:from-sky-950/20 dark:to-black relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-sky-300 dark:via-sky-700 to-transparent"></div>
+        <div className="absolute bottom-0 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-sky-300 dark:via-sky-700 to-transparent"></div>
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="max-w-2xl mx-auto text-center"
-        >
-          <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">
-            JOINING THE COMMUNITY OF
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-8">
-            <div className="text-neutral-400 dark:text-neutral-600 text-lg font-light">5,000+ early adopters</div>
-            <div className="w-px h-8 bg-neutral-200 dark:bg-neutral-800"></div>
-            <div className="text-neutral-400 dark:text-neutral-600 text-lg font-light">200+ developers</div>
-            <div className="w-px h-8 bg-neutral-200 dark:bg-neutral-800"></div>
-            <div className="text-neutral-400 dark:text-neutral-600 text-lg font-light">12 partner companies</div>
-          </div>
-        </motion.div>
+          transition={{ duration: 1 }}
+          className="absolute -top-[30%] -left-[10%] w-[60%] h-[60%] rounded-full bg-gradient-to-tr from-sky-400/10 to-sky-200/10 dark:from-sky-400/5 dark:to-sky-600/5 blur-3xl"
+        ></motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="absolute -bottom-[30%] -right-[10%] w-[60%] h-[60%] rounded-full bg-gradient-to-tr from-sky-400/10 to-sky-200/10 dark:from-sky-400/5 dark:to-sky-600/5 blur-3xl"
+        ></motion.div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto relative">
+        <div className="text-center max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-6"
+          >
+            <span className="inline-block bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 text-sm font-medium px-4 py-1.5 rounded-full mb-4">
+              Limited Availability
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+              Be Among the First to <br className="hidden md:inline" />
+              <span className="relative inline-block">
+                <span className="relative z-10">Experience the Future</span>
+                <span className="absolute bottom-2 left-0 right-0 h-4 bg-sky-200/50 dark:bg-sky-700/20 -z-10 transform -rotate-1"></span>
+              </span>
+            </h2>
+            <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8">
+              Join our exclusive waitlist for early access to Cleo glasses and be part of shaping the future of everyday computing.
+            </p>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="max-w-md mx-auto"
+          >
+            <WaitlistForm />
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-12 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8"
+          >
+            <div className="flex items-center text-neutral-500 dark:text-neutral-400">
+              <svg className="w-5 h-5 mr-2 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+              </svg>
+              <span className="text-sm">Limited first batch</span>
+            </div>
+            <div className="flex items-center text-neutral-500 dark:text-neutral-400">
+              <svg className="w-5 h-5 mr-2 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-sm">Shipping Q4 2024</span>
+            </div>
+            <div className="flex items-center text-neutral-500 dark:text-neutral-400">
+              <svg className="w-5 h-5 mr-2 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              <span className="text-sm">Early adopter benefits</span>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
