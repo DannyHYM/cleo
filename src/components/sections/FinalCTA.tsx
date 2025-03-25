@@ -68,7 +68,7 @@ const FinalCTA = () => {
             <span className="inline-block bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 text-sm font-medium px-4 py-1.5 rounded-full mb-4">
               Limited Availability
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-neutral-500 dark:text-neutral-400">
               Be Among the First to <br className="hidden md:inline" />
               <span className="relative inline-block">
                 <span className="relative z-10">Experience the Future</span>
@@ -107,7 +107,7 @@ const FinalCTA = () => {
               <svg className="w-5 h-5 mr-2 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span className="text-sm">Shipping Q4 2024</span>
+              <span className="text-sm">Shipping Q4 2026</span>
             </div>
             <div className="flex items-center text-neutral-500 dark:text-neutral-400">
               <svg className="w-5 h-5 mr-2 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">

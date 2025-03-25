@@ -121,22 +121,12 @@ const Hero = () => {
     containerRef.current?.addEventListener('mousemove', handleMouseMove);
     containerRef.current?.addEventListener('click', handleClick);
 
-    // Add automatic ripples
-    const autoRippleInterval = setInterval(() => {
-      if (canvas.width > 0 && canvas.height > 0) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        ripples.push(new Ripple(x, y));
-      }
-    }, 1500);
-
     // Cleanup
     return () => {
       window.removeEventListener('resize', updateCanvasSize);
       containerRef.current?.removeEventListener('mousemove', handleMouseMove);
       containerRef.current?.removeEventListener('click', handleClick);
       cancelAnimationFrame(animationFrameId);
-      clearInterval(autoRippleInterval);
     };
   }, []);
 
@@ -148,7 +138,7 @@ const Hero = () => {
       {/* Background AR render image - full screen */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/ARRender.png"
+          src="/frontrender.png"
           alt="Cleo"
           fill
           priority

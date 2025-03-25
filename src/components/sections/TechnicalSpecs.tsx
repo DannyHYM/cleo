@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 type SpecPoint = {
   id: string;
@@ -14,64 +15,65 @@ type SpecPoint = {
 
 const specPoints: SpecPoint[] = [
   {
-    id: "display",
-    title: "4K Micro-OLED Display",
-    description: "Ultra-high resolution with 120Hz refresh rate for smooth visuals and text rendering.",
-    x: "35%",
-    y: "30%",
+    id: "A",
+    title: "Ultra-Wide HD Lens",
+    description: "Take panoramic, high-quality photos and videos with the ultra-wide 12 megapixel lens.",
+    x: "41%",
+    y: "26%",
     delay: 0.1,
   },
   {
-    id: "battery",
-    title: "Li-Ion Battery",
-    description: "Custom-designed 1200mAh battery with fast charging capability via USB-C.",
-    x: "75%",
-    y: "65%",
-    delay: 0.2,
-  },
-  {
-    id: "sensors",
-    title: "Sensor Array",
-    description: "Includes depth sensor, 6-axis motion tracking, and ambient light sensors.",
+    id: "B",
+    title: "UI Navigation",
+    description: "Delicately crafted stainless steel knob for easy navigation.",
     x: "62%",
     y: "25%",
     delay: 0.3,
   },
   {
-    id: "frame",
-    title: "Titanium Frame",
-    description: "Lightweight yet durable titanium alloy provides all-day comfort.",
+    id: "C",
+    title: "Li-Ion Battery",
+    description: "Custom-designed 1200mAh battery with fast charging capability via USB-C.",
+    x: "67.5%",
+    y: "60%",
+    delay: 0.2,
+  },
+  {
+    id: "D",
+    title: "Neural Processor",
+    description: "Custom 5nm SoC with dedicated AI cores for real-time processing.",
+    x: "80%",
+    y: "55%",
+    delay: 0.5,
+  },
+  {
+    id: "E",
+    title: "Blue Light Protection Lenses",
+    description: "99.9% UV protection and blue light filtering clear lenses. For every enviornemnt.",
     x: "20%",
     y: "55%",
     delay: 0.4,
   },
-  {
-    id: "processor",
-    title: "Neural Processor",
-    description: "Custom 5nm SoC with dedicated AI cores for real-time processing.",
-    x: "80%",
-    y: "42%",
-    delay: 0.5,
-  },
+  
 ];
 
 const TechnicalSpecs = () => {
   const [activeSpec, setActiveSpec] = useState<string | null>(null);
 
   return (
-    <section id="specs" className="py-28 px-4 md:px-6 bg-neutral-50 dark:bg-neutral-950 relative overflow-hidden">
+    <section id="specs" className="py-24 px-2 md:px-4 bg-neutral-50 dark:bg-neutral-950 relative overflow-hidden">
       {/* Grid background */}
       <div className="absolute inset-0 z-0 opacity-10">
         <div className="h-full w-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBzdHJva2U9IiM5OTkiIHN0cm9rZS13aWR0aD0iMC41IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDYwaDYwVjBoLTYweiIvPjxwYXRoIGQ9Ik0zMCA2MFYwIi8+PHBhdGggZD0iTTYwIDMwSDAiLz48L2c+PC9zdmc+')]"></div>
       </div>
       
-      <div className="max-w-6xl mx-auto relative">
+      <div className="max-w-[1440px] mx-auto relative">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -93,70 +95,60 @@ const TechnicalSpecs = () => {
           </motion.p>
         </motion.div>
         
-        <div className="flex flex-col lg:flex-row items-center gap-16">
+        <div className="flex flex-col lg:flex-row items-center gap-8">
           {/* Technical diagram */}
           <motion.div 
-            className="relative lg:w-1/2 h-[500px] flex items-center justify-center"
+            className="relative lg:w-2/3 h-[700px] flex items-center justify-center"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            {/* Main product illustration */}
-            <div className="relative w-full max-w-md h-80 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm">
-              {/* Blueprint grid */}
-              <div className="absolute inset-0 overflow-hidden opacity-30">
-                <div className="absolute inset-0 w-full h-full bg-[linear-gradient(0deg,rgba(0,0,0,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.05)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-              </div>
-              
-              {/* Glass representation */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[280px] h-[120px] rounded-[100px] border-2 border-neutral-300 dark:border-neutral-700"></div>
-              
-              {/* Left arm */}
-              <div className="absolute top-1/2 left-[10%] transform -translate-y-1/2 w-[40px] h-[8px] bg-neutral-300 dark:bg-neutral-700 rounded-l-full"></div>
-              
-              {/* Right arm */}
-              <div className="absolute top-1/2 right-[10%] transform -translate-y-1/2 w-[40px] h-[8px] bg-neutral-300 dark:bg-neutral-700 rounded-r-full"></div>
-              
-              {/* Left lens */}
-              <div className="absolute top-1/2 left-[35%] transform -translate-y-1/2 w-[60px] h-[60px] rounded-full border-2 border-neutral-300 dark:border-neutral-700 bg-neutral-100/50 dark:bg-neutral-800/50"></div>
-              
-              {/* Right lens */}
-              <div className="absolute top-1/2 right-[35%] transform -translate-y-1/2 w-[60px] h-[60px] rounded-full border-2 border-neutral-300 dark:border-neutral-700 bg-neutral-100/50 dark:bg-neutral-800/50"></div>
-              
-              {/* Bridge */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[30px] h-[8px] bg-neutral-300 dark:bg-neutral-700"></div>
-              
-              {/* Detail element */}
-              <div className="absolute top-[35%] right-[30%] w-[16px] h-[16px] rounded-full border border-sky-600/50 flex items-center justify-center">
-                <div className="w-[8px] h-[8px] rounded-full bg-sky-600/30"></div>
-              </div>
-              
-              {/* Spec points */}
+            {/* Product render image */}
+            <div className="absolute inset-0 z-0 flex items-center justify-center">
+              <Image
+                src="/render.png"
+                alt="Cleo AR Glasses"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+
+            {/* Spec points only - no overlay */}
+            <div className="relative w-full h-full">
               {specPoints.map((point) => (
                 <motion.div
                   key={point.id}
                   initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: point.delay }}
+                  animate={{ 
+                    opacity: activeSpec === point.id ? 1 : 0,
+                    scale: activeSpec === point.id ? 1 : 0
+                  }}
+                  transition={{ duration: 0.4 }}
                   className="absolute"
                   style={{ left: point.x, top: point.y }}
                 >
                   <button
-                    className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 shadow-md ${
                       activeSpec === point.id 
                         ? 'bg-sky-600 scale-110' 
-                        : 'bg-neutral-200 dark:bg-neutral-700 hover:bg-sky-600/70'
+                        : 'bg-white dark:bg-neutral-800 hover:bg-sky-500 hover:text-white'
                     }`}
-                    onClick={() => setActiveSpec(point.id === activeSpec ? null : point.id)}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent bubbling to parent elements
+                      setActiveSpec(point.id === activeSpec ? null : point.id);
+                    }}
                   >
-                    <span className="text-white text-xs font-medium">{point.id.charAt(0)}</span>
+                    <span className={`text-xs font-medium ${activeSpec === point.id ? 'text-white' : 'text-sky-600 dark:text-sky-400'}`}>{point.id.charAt(0).toUpperCase()}</span>
                   </button>
                   
-                  {/* Connector line */}
-                  <div className={`absolute w-px h-16 bg-sky-600/50 transition-opacity duration-300 ${
-                    activeSpec === point.id ? 'opacity-100' : 'opacity-0'
+                  {/* Connector line - conditionally point up for certain points */}
+                  <div className={`absolute w-[2px] h-20 bg-sky-500/70 ${
+                    // Make connector line point up for battery and processor
+                    point.id === 'C' || point.id === 'D' 
+                      ? '-top-20' // Position above the button
+                      : 'top-8'  // Default position below the button
                   }`}></div>
                 </motion.div>
               ))}
@@ -165,22 +157,22 @@ const TechnicalSpecs = () => {
           
           {/* Specifications detail */}
           <motion.div 
-            className="lg:w-1/2"
+            className="lg:w-1/3 w-full"
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-8">
-              <h3 className="text-2xl font-semibold mb-6">Key Components</h3>
+            <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-8 shadow-lg">
+              <h3 className="text-2xl font-semibold mb-6 text-neutral-600 dark:text-neutral-400">Key Components</h3>
               
               <div className="space-y-6">
                 {specPoints.map((point) => (
                   <motion.div 
                     key={point.id}
-                    className={`p-5 rounded-xl transition-all duration-300 ${
+                    className={`p-5 rounded-xl transition-all duration-300 cursor-pointer ${
                       activeSpec === point.id 
-                        ? 'bg-neutral-100 dark:bg-neutral-800 shadow-sm' 
+                        ? 'bg-neutral-100 dark:bg-neutral-800 shadow-sm border-l-4 border-sky-500' 
                         : 'hover:bg-neutral-50 dark:hover:bg-neutral-800/50'
                     }`}
                     initial={{ opacity: 0.7 }}
@@ -196,7 +188,7 @@ const TechnicalSpecs = () => {
                           ? 'bg-sky-600' 
                           : 'bg-neutral-300 dark:bg-neutral-700'
                       }`}></div>
-                      <h4 className="text-lg font-medium">{point.title}</h4>
+                      <h4 className="text-lg font-medium text-neutral-900 dark:text-white">{point.title}</h4>
                     </div>
                     <p className="text-neutral-600 dark:text-neutral-400 pl-7 font-light">{point.description}</p>
                   </motion.div>
@@ -210,4 +202,4 @@ const TechnicalSpecs = () => {
   );
 };
 
-export default TechnicalSpecs; 
+export default TechnicalSpecs;
