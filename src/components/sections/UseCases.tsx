@@ -44,7 +44,7 @@ const useCases: UseCase[] = [
       { text: "Indoor mapping and guidance", delay: 0.3 },
     ],
     imagePosition: "left",
-    bgColor: "bg-sky-100/50 dark:bg-sky-900/10",
+    bgColor: "bg-sky-400/20 dark:bg-sky900/10",
     delay: 0.3,
   },
   {

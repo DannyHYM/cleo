@@ -43,7 +43,7 @@ const FounderStory = () => {
             >
               <div className="text-sky-600 dark:text-sky-400 text-4xl font-serif leading-none mb-2">"</div>
               <p className="italic text-neutral-700 dark:text-neutral-300 mb-4">
-                We're building technology that enhances human potential rather than replacing it.
+              Cleo’s mission is to empower you to work smarter, not harder. With built-in AI, Cleo tracks your reps and automatically logs it into the Cleo APP, helping you stay focused and maximize your workout efficiency.
               </p>
               <div className="flex items-center">
                 <div className="w-2 h-2 bg-sky-500 rounded-full mr-2"></div>

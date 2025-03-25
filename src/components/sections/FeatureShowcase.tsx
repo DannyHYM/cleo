@@ -14,23 +14,23 @@ type Feature = {
 const features: Feature[] = [
   {
     id: "feature-1",
-    title: "Spatial Computing",
-    description: "Interact with digital content naturally in your physical space with advanced object recognition and placement.",
-    iconPath: "M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64",
+    title: "Workout Tracking",
+    description: "Cleo's computer vision technology tracks and automatically logs your sets and reps in real time.",
+    iconPath: "M6.5 6.5h3a1 1 0 001-1v-1a1 1 0 00-1-1h-3a1 1 0 00-1 1v1a1 1 0 001 1zm8 0h3a1 1 0 001-1v-1a1 1 0 00-1-1h-3a1 1 0 00-1 1v1a1 1 0 001 1zm-8 11h3a1 1 0 001-1v-1a1 1 0 00-1-1h-3a1 1 0 00-1 1v1a1 1 0 001 1zm8 0h3a1 1 0 001-1v-1a1 1 0 00-1-1h-3a1 1 0 00-1 1v1a1 1 0 001 1zm-6-9h2v7h-2zm6 0h2v7h-2z",
     delay: 0.1,
   },
   {
     id: "feature-2",
-    title: "Retina Display",
-    description: "Experience stunning 4K resolution with 120Hz refresh rate and HDR support for crystal-clear visuals.",
-    iconPath: "M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z M15 12a3 3 0 11-6 0 3 3 0 016 0z",
+    title: "Contextual Awareness",
+    description: "Our AI recognizes your environment and provides relevant information to assist your workout.",
+    iconPath: "M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18",
     delay: 0.2,
   },
   {
     id: "feature-3",
-    title: "Contextual Awareness",
-    description: "Our AI recognizes your environment and provides relevant information exactly when you need it.",
-    iconPath: "M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z",
+    title: "MicroLED Display",
+    description: "Minimal and most efficient display technology with two-foot-wide text projection that appears five feet infront of you. ",
+    iconPath: "M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z M15 12a3 3 0 11-6 0 3 3 0 016 0z",
     delay: 0.3,
   },
   {
@@ -42,15 +42,15 @@ const features: Feature[] = [
   },
   {
     id: "feature-5",
-    title: "Adaptive Brightness",
-    description: "Automatic brightness adjustment ensures optimal visibility in any lighting condition, day or night.",
-    iconPath: "M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18",
+    title: "Doc to Charge",
+    description: "Sleak and modern magnetic charging doc. Simply rest the glasses on the doc to charge. No more hassle.",
+    iconPath: "M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z",
     delay: 0.5,
   },
   {
     id: "feature-6",
     title: "All-Day Battery",
-    description: "Enjoy up to 8 hours of active use with our advanced power management and fast charging capability.",
+    description: "Enjoy up to 12 hours of active use with our efficient display technology and fast charging capability.",
     iconPath: "M21 10.5h.375c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125H21M4.5 10.5H18V15H4.5v-4.5zM3.75 18h15A2.25 2.25 0 0021 15.75v-6a2.25 2.25 0 00-2.25-2.25h-15A2.25 2.25 0 001.5 9.75v6A2.25 2.25 0 003.75 18z",
     delay: 0.6,
   },
@@ -81,15 +81,6 @@ const FeatureShowcase = () => {
           style={{ y }}
           className="text-center mb-20"
         >
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-3xl md:text-4xl font-bold mb-6 tracking-tight"
-          >
-            Cutting-Edge Features
-          </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -134,8 +125,9 @@ const FeatureShowcase = () => {
                 <div className="absolute w-8 h-px bg-neutral-200 dark:bg-neutral-700 right-0 top-1/2 transform translate-x-full group-hover:bg-sky-300 dark:group-hover:bg-sky-700 transition-colors hidden lg:block"></div>
               </div>
               
-              <h3 className="text-xl font-semibold mb-3 group-hover:text-sky-700 dark:group-hover:text-sky-400 transition-colors">{feature.title}</h3>
-              <p className="text-neutral-600 dark:text-neutral-400 font-light">{feature.description}</p>
+              <h3 className="text-xl font-semibold mb-3 text-sky-700 dark:text-sky-400">{feature.title}</h3>
+              
+              <p className="text-neutral-400/30 dark:text-neutral-500/70 font-light group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors duration-300">{feature.description}</p>
             </motion.div>
           ))}
         </div>

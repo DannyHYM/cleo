@@ -143,35 +143,30 @@ const Hero = () => {
   return (
     <section 
       ref={containerRef}
-      className="relative min-h-screen w-full flex flex-col items-center justify-center px-4 overflow-hidden pt-24 pb-24"
+      className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* Ripple effect canvas */}
+      {/* Background AR render image - full screen */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/ARRender.png"
+          alt="Cleo"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+          style={{ filter: 'brightness(1.1)' }} // Darken the image slightly to improve text visibility
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
+      </div>
+      
+      {/* Ripple effect canvas - above the image */}
       <canvas 
         ref={canvasRef} 
-        className="absolute inset-0 z-0 bg-gradient-to-b from-black to-neutral-900"
+        className="absolute inset-0 z-10"
       />
       
       {/* Hero content */}
-      <div className="flex flex-col items-center justify-center z-10 w-full">
-        {/* Product image - using AR render image */}
-        <motion.div 
-          className="relative w-full max-w-3xl mx-auto mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <div className="relative w-full aspect-[16/9] rounded-3xl shadow-lg overflow-hidden">
-            <Image
-              src="/ARRender.png"
-              alt="Vision AR Glasses"
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1100px"
-              className="object-contain"
-            />
-          </div>
-        </motion.div>
-        
+      <div className="flex flex-col items-center justify-center z-20 w-full px-4 py-24 pt-50">
         {/* Text content */}
         <motion.div 
           className="text-center z-10 max-w-3xl"
@@ -180,7 +175,7 @@ const Hero = () => {
           transition={{ duration: 0.6 }}
         >
           <motion.h1 
-            className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-6 text-white"
+            className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-70 text-white"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -194,7 +189,7 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            World's first AI-powered smart fitness glasses. 
+            Experience reality enhanced with our precisely engineered Cleo glasses. Clean design meets revolutionary technology.
           </motion.p>
           
           <motion.div
