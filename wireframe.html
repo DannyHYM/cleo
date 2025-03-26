@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cleo - Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+        }
+
+        .navbar {
+            background: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #0284c7;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .hero {
+            min-height: 100vh;
+            background: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #222;
+            z-index: 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #0284c7;
+            color: white;
+            border-radius: 9999px;
+            text-decoration: none;
+        }
+
+        .features {
+            background: white;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding-top: 3rem;
+        }
+
+        .feature-card {
+            background: #f8f8f8;
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid #eee;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: #e0f2fe;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            color: #0284c7;
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .feature-description {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .use-cases {
+            background: #f8fafc;
+        }
+
+        .use-case-card {
+            display: flex;
+            gap: 2rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+
+        .use-case-content {
+            flex: 1;
+        }
+
+        .use-case-image {
+            flex: 1;
+            background: #e0f2fe;
+            height: 300px;
+            border-radius: 1rem;
+        }
+
+        .tech-specs {
+            background: white;
+            text-align: center;
+        }
+
+        .specs-image-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            height: 500px;
+            background: #f8fafc;
+            border-radius: 1rem;
+        }
+
+        .spec-point {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: #0284c7;
+            border-radius: 50%;
+        }
+
+        .founder-story {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .founder-image {
+            height: 600px;
+            background: #e0f2fe;
+            border-radius: 1rem;
+        }
+
+        .testimonials {
+            background: #f8fafc;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid #eee;
+        }
+
+        .testimonial-avatar {
+            width: 64px;
+            height: 64px;
+            background: #e0f2fe;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        .final-cta {
+            text-align: center;
+            background: #0284c7;
+            color: white;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin-top: 3rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -5px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background: #0284c7;
+            border-radius: 50%;
+        }
+
+        .timeline-item::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: -2rem;
+            width: 1px;
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">Cleo</div>
+        <div class="nav-links">
+            <span>Features</span>
+            <span>Tech Specs</span>
+            <span>Use Cases</span>
+            <span>Testimonials</span>
+            <span>About</span>
+            <span class="button">Join Waitlist</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="image-placeholder"></div>
+        <div class="hero-content">
+            <h1>The Future is in <span style="color: #0284c7;">Sight</span></h1>
+            <p>Experience reality enhanced with our precisely engineered Cleo glasses. Clean design meets revolutionary technology.</p>
+            <a href="#features" class="button">Discover</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">Features</h2>
+        <p class="section-subtitle">Your Personal AI Trainer. No Phones, No Interruptions, Just Results.</p>
+        <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="feature-card">
+                <div class="feature-icon"></div>
+                <h3 class="feature-title">Workout Tracking</h3>
+                <p class="feature-description">Cleo's computer vision technology tracks and automatically logs your sets and reps in real time.</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-card">
+                <div class="feature-icon"></div>
+                <h3 class="feature-title">Contextual Awareness</h3>
+                <p class="feature-description">Our AI recognizes your environment and provides relevant information to assist your workout.</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-card">
+                <div class="feature-icon"></div>
+                <h3 class="feature-title">MicroLED Display</h3>
+                <p class="feature-description">Minimal and most efficient display technology with two-foot-wide text projection that appears five feet infront of you.</p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="feature-card">
+                <div class="feature-icon"></div>
+                <h3 class="feature-title">Voice Control</h3>
+                <p class="feature-description">Control your experience with natural voice commands using our advanced speech recognition system.</p>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="feature-card">
+                <div class="feature-icon"></div>
+                <h3 class="feature-title">Doc to Charge</h3>
+                <p class="feature-description">Sleak and modern magnetic charging doc. Simply rest the glasses on the doc to charge. No more hassle.</p>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="feature-card">
+                <div class="feature-icon"></div>
+                <h3 class="feature-title">All-Day Battery</h3>
+                <p class="feature-description">Enjoy up to 12 hours of active use with our efficient display technology and fast charging capability.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="use-cases" id="use-cases">
+        <h2 class="section-title">Use Cases & Benefits</h2>
+        <p class="section-subtitle">Discover how Cleo glasses seamlessly integrate into your daily life, enhancing how you work, navigate, and communicate.</p>
+        
+        <!-- Use Case 1 -->
+        <div class="use-case-card">
+            <div class="use-case-content">
+                <h3 class="feature-title">Enhanced Productivity</h3>
+                <p class="feature-description">Transform how you work with hands-free computing and contextual information.</p>
+                <ul>
+                    <li>Hands-free task management</li>
+                    <li>Contextual information display</li>
+                    <li>Real-time collaboration tools</li>
+                </ul>
+            </div>
+            <div class="use-case-image"></div>
+        </div>
+
+        <!-- Use Case 2 -->
+        <div class="use-case-card">
+            <div class="use-case-image"></div>
+            <div class="use-case-content">
+                <h3 class="feature-title">Intuitive Navigation</h3>
+                <p class="feature-description">Never get lost again with AR guidance overlays for indoor and outdoor navigation.</p>
+                <ul>
+                    <li>Turn-by-turn AR directions</li>
+                    <li>Location-based information</li>
+                    <li>Indoor mapping and guidance</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Use Case 3 -->
+        <div class="use-case-card">
+            <div class="use-case-content">
+                <h3 class="feature-title">Seamless Communication</h3>
+                <p class="feature-description">Interact naturally with digital content and stay connected with immersive presence.</p>
+                <ul>
+                    <li>Holographic video calling</li>
+                    <li>Shared AR experiences</li>
+                    <li>Visual message annotations</li>
+                </ul>
+            </div>
+            <div class="use-case-image"></div>
+        </div>
+    </section>
+
+    <!-- Technical Specs Section -->
+    <section class="tech-specs" id="tech-specs">
+        <h2 class="section-title">Technical Specifications</h2>
+        <p class="section-subtitle">Cutting-edge technology packed into a sleek, comfortable design.</p>
+        
+        <div class="specs-image-container">
+            <!-- Spec points -->
+            <div class="spec-point" style="left: 41%; top: 26%;" title="Ultra-Wide HD Lens"></div>
+            <div class="spec-point" style="left: 62%; top: 25%;" title="UI Navigation"></div>
+            <div class="spec-point" style="left: 67.5%; top: 60%;" title="Li-Ion Battery"></div>
+            <div class="spec-point" style="left: 80%; top: 55%;" title="Neural Processor"></div>
+            <div class="spec-point" style="left: 20%; top: 55%;" title="Blue Light Protection Lenses"></div>
+        </div>
+    </section>
+
+    <!-- Founder Story Section -->
+    <section class="founder-story" id="about">
+        <div class="founder-image"></div>
+        <div>
+            <h2 class="section-title">The Vision Behind Our Company</h2>
+            <p>What began as a research project at Stanford in 2018 has evolved into a mission to redefine how humans interact with digital information. Our founder, Alex Rivera, experienced firsthand the limitations of existing interfaces when working on complex engineering projects.</p>
+            <p>"Information should adapt to our lives, not the other way around," Alex often says. This philosophy drove our team to develop a more natural and intuitive computing platform that integrates seamlessly with your perception.</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>2018 - Research Project</h4>
+                    <p>Stanford research lab begins exploring AR interfaces</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2020 - Company Founded</h4>
+                    <p>Cleo is founded with seed funding of $5M</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2022 - Prototype Developed</h4>
+                    <p>First working prototype achieves 60° FOV</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2024 - Product Launch</h4>
+                    <p>Cleo glasses ready for consumer market</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <h2 class="section-title">What Our Users Say</h2>
+        <p class="section-subtitle">Early adopters share their experiences with Cleo</p>
+        
+        <div class="testimonials-grid">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card">
+                <div class="testimonial-avatar"></div>
+                <p>"The workout tracking feature is incredible. It's like having a personal trainer that knows exactly what you're doing."</p>
+                <h4>Sarah Chen</h4>
+                <p>Fitness Enthusiast</p>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card">
+                <div class="testimonial-avatar"></div>
+                <p>"As a developer, having hands-free access to documentation while coding has been a game-changer."</p>
+                <h4>Michael Rodriguez</h4>
+                <p>Software Engineer</p>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card">
+                <div class="testimonial-avatar"></div>
+                <p>"The AR navigation is so intuitive, I can't imagine going back to looking at my phone for directions."</p>
+                <h4>Emma Thompson</h4>
+                <p>Urban Explorer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <h2 class="section-title" style="color: white;">Join the Future</h2>
+        <p class="section-subtitle" style="color: white; opacity: 0.9;">Be among the first to experience the next generation of computing</p>
+        <a href="#" class="button" style="background: white; color: #0284c7;">Join Waitlist</a>
+    </section>
+</body>
+</html> 
