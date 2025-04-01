@@ -68,7 +68,7 @@ const FrameAnimation = () => {
     // Calculate dimensions to maintain aspect ratio while filling the canvas
     let drawWidth, drawHeight, offsetX, offsetY;
     
-    if (canvasAspect > imgAspect) {
+    if (canvas.width > canvas.height) {
       // Canvas is wider than the image
       drawWidth = canvas.width;
       drawHeight = canvas.width / imgAspect;
@@ -81,6 +81,8 @@ const FrameAnimation = () => {
       offsetX = (canvas.width - drawWidth) / 2;
       offsetY = 0;
     }
+
+    console.log(canvas.width, canvas.height, drawWidth, drawHeight, offsetX, offsetY);
     
     // Draw the image centered - use low-level drawing for better performance
     try {
@@ -96,7 +98,8 @@ const FrameAnimation = () => {
     if (!canvas || !containerRef.current) return;
     
     // Adjust for high-DPI displays for sharper images
-    const scale = window.devicePixelRatio;
+    // const scale = window.devicePixelRatio;
+    const scale = 1;
     
     // Set canvas size to match container with device pixel ratio
     canvas.width = containerRef.current.clientWidth * scale;
