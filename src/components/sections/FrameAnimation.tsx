@@ -82,7 +82,7 @@ const FrameAnimation = () => {
       offsetY = 0;
     }
 
-    console.log(canvas.width, canvas.height, drawWidth, drawHeight, offsetX, offsetY);
+    // console.log(canvas.width, canvas.height, drawWidth, drawHeight, offsetX, offsetY);
     
     // Draw the image centered - use low-level drawing for better performance
     try {
@@ -352,7 +352,7 @@ const FrameAnimation = () => {
               {/* Current image */}
               <img 
                 ref={imageRef}
-                src={`/frame-anim-1/${formatFrameNumber(currentFrame)}.png`}
+                src={`/frame-anim-1/${formatFrameNumber(currentFrame)}.jpg`}
                 alt={`Cleo glasses animation frame`}
                 className="w-full h-full object-contain"
                 style={{ zIndex: 2 }}

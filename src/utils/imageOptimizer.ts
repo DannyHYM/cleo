@@ -40,7 +40,7 @@ export function formatFrameNumber(num: number): string {
 export function generateFrameUrls(prefix: string, totalFrames: number, startIndex: number = 0): string[] {
   const urls: string[] = [];
   for (let i = startIndex; i < totalFrames + startIndex; i++) {
-    urls.push(`/${prefix}/${formatFrameNumber(i)}.png`);
+    urls.push(`/${prefix}/${formatFrameNumber(i)}.jpg`);
   }
   return urls;
 }
