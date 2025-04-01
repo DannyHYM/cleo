@@ -176,8 +176,16 @@ const FrameAnimation = () => {
     // Use request animation frame for smoother transitions
     let rafId: number | null = null;
     
+    // Keeps track of requested frame index for animation
+    let requestedFrameIndex = -1;
+    
     // Function to apply frame update with RAF
     const applyFrameUpdate = (frameIndex: number) => {
+      // If the same frame is already requested, do nothing
+      if (requestedFrameIndex === frameIndex) return;
+      
+      requestedFrameIndex = frameIndex;
+      
       // Cancel existing RAF
       if (rafId !== null) {
         cancelAnimationFrame(rafId);
@@ -284,7 +292,7 @@ const FrameAnimation = () => {
       }
       window.removeEventListener('resize', handleResize);
     };
-  }, [setupCanvas, handleResize, useCanvas, drawFrameToCanvas, totalFrames]);
+  }, [formatFrameNumber, handleResize, useCanvas, drawFrameToCanvas, setupCanvas, totalFrames]);
 
   // Auto-detect if canvas is better (e.g., mobile)
   useEffect(() => {
@@ -369,4 +377,4 @@ const FrameAnimation = () => {
   );
 };
 
-export default FrameAnimation; 
+export default FrameAnimation;
