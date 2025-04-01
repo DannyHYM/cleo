@@ -195,33 +195,49 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Part 3: Discover button */}
-        <div className="w-full px-4 absolute bottom-[150px]">
+        {/* Part 3: Down arrow indicator */}
+        <div className="w-full px-4 absolute bottom-[120px]">
           <motion.div 
-            className="text-center max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            className="flex justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.8 }}
+            transition={{ duration: 1.2, delay: 0.8 }}
           >
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              animate={{ 
+                y: [0, 10, 0] 
+              }}
+              transition={{ 
+                repeat: Infinity, 
+                duration: 2.5, 
+                ease: "easeInOut" 
+              }}
               className="flex items-center justify-center"
+              onClick={() => {
+                // Scroll to the FrameAnimation section
+                const frameAnimationSection = document.getElementById("frame-animation");
+                if (frameAnimationSection) {
+                  frameAnimationSection.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+              style={{ cursor: 'pointer' }}
             >
-              <Button 
-                variant="primary" 
-                size="lg"
-                className="rounded-full px-10 py-6 text-base font-medium tracking-wide bg-sky-600 hover:bg-sky-700"
-                onClick={() => {
-                  const featuresSection = document.getElementById("features");
-                  if (featuresSection) {
-                    featuresSection.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
+              <svg 
+                width="40" 
+                height="20" 
+                viewBox="0 0 40 24" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-gray-400 hover:text-gray-300 transition-colors duration-300"
               >
-                Discover
-              </Button>
+                <path 
+                  d="M2 2L20 20L38 2" 
+                  stroke="currentColor" 
+                  strokeWidth="4" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                />
+              </svg>
             </motion.div>
           </motion.div>
         </div>

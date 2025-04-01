@@ -122,14 +122,22 @@ const Footer = () => {
           {/* Logo and description */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center mb-6">
-              <div className="relative flex items-center justify-center w-10 h-10 mr-3 rounded-full bg-sky-500 text-white overflow-hidden">
-                <span className="absolute font-bold text-lg">C</span>
-                <div className="absolute inset-0 bg-gradient-to-tr from-sky-600 to-sky-400 opacity-80"></div>
-              </div>
-              <span className="text-xl font-bold">Cleo</span>
+              <svg 
+                width="40" 
+                height="40" 
+                viewBox="0 0 80 80" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+                className="mr-3"
+              >
+                <rect y="0" width="80" height="24" fill="black" className="dark:fill-white" />
+                <rect y="32" width="48" height="16" fill="black" className="dark:fill-white" />
+                <rect y="56" width="80" height="24" fill="black" className="dark:fill-white" />
+              </svg>
+              <span className="text-xl font-bold text-black dark:text-white">CLEO</span>
             </Link>
             <p className="text-neutral-600 dark:text-neutral-400 text-sm mb-6 font-light">
-              Redefining how we see and interact with digital information in our physical world.
+              Revolutionizing the next approach to workout.
             </p>
             
             {/* Social links */}
@@ -191,7 +199,7 @@ const Footer = () => {
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Made with ❤️ in San Francisco
+              Designed with ❤️ in Los Angeles
             </span>
           </div>
         </div>

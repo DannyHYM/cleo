@@ -16,6 +16,7 @@ type UseCase = {
   imagePosition: "left" | "right";
   bgColor: string;
   delay: number;
+  titleColor?: string;
 };
 
 const useCases: UseCase[] = [
@@ -32,6 +33,7 @@ const useCases: UseCase[] = [
     imagePosition: "right",
     bgColor: "bg-sky-50 dark:bg-sky-950/20",
     delay: 0.1,
+    titleColor: "text-gray-600 dark:text-gray-400",
   },
   {
     id: "navigation",
@@ -60,6 +62,7 @@ const useCases: UseCase[] = [
     imagePosition: "right",
     bgColor: "bg-sky-50 dark:bg-sky-950/20",
     delay: 0.5,
+    titleColor: "text-gray-600 dark:text-gray-400",
   },
 ];
 
@@ -82,7 +85,7 @@ const UseCaseCard = ({ useCase }: { useCase: UseCase }) => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={useCase.iconPath} />
             </svg>
           </div>
-          <h3 className="text-2xl font-bold">{useCase.title}</h3>
+          <h3 className={`text-2xl font-bold ${useCase.titleColor || ''}`}>{useCase.title}</h3>
         </div>
         
         <p className="text-neutral-600 dark:text-neutral-400 mb-6">{useCase.description}</p>

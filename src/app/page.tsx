@@ -161,8 +161,8 @@ export default function Home() {
           <FeatureShowcase />
           <TechnicalSpecs />
           <UseCases />
-          <Testimonials />
-          <FounderStory />
+          {/* <Testimonials />
+          <FounderStory /> */}
           <FinalCTA />
           <Footer />
         </main>

@@ -323,6 +323,7 @@ const FrameAnimation = () => {
   return (
     <section 
       ref={sectionRef}
+      id="frame-animation"
       className="relative w-full"
       style={{ height: "500vh" }}
     >
