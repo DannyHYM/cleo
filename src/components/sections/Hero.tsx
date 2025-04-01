@@ -196,7 +196,7 @@ const Hero = () => {
         </div>
 
         {/* Part 3: Discover button */}
-        <div className="w-full px-4 absolute bottom-[100px]">
+        <div className="w-full px-4 absolute bottom-[150px]">
           <motion.div 
             className="text-center max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 30 }}
