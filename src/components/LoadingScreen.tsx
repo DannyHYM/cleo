@@ -170,8 +170,8 @@ const LoadingScreen = ({ onLoadingComplete, framesToLoad = 192 }: LoadingScreenP
         {/* Loading status text - more informative */}
         <div className="text-white text-sm font-light">
           {loadingStage === 'initializing' && 'Preparing...'}
-          {loadingStage === 'loading-critical' && `Optimizing critical frames: ${loadingProgress}%`}
-          {loadingStage === 'loading-remaining' && `Loading animation: ${loadingProgress}%`}
+          {loadingStage === 'loading-critical' && `Loading: ${loadingProgress}%`}
+          {loadingStage === 'loading-remaining' && `Loading: ${loadingProgress}%`}
           {loadingStage === 'finalizing' && 'Finalizing...'}
         </div>
       </div>
