@@ -1,0 +1,15 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "rewrites": [
+    { "source": "/api/waitlist", "destination": "/api/waitlist" }
+  ],
+  "env": {
+    "NEXT_PUBLIC_DEPLOYMENT_ENV": "production"
+  },
+  "github": {
+    "silent": true
+  }
+} 

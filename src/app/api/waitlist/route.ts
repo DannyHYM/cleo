@@ -1,8 +1,22 @@
 import { NextResponse } from 'next/server';
 import supabase from '@/lib/supabase';
 
+// Check if Supabase credentials are properly configured
+const isSupabaseConfigured = () => {
+  return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+};
+
 export async function POST(request: Request) {
   try {
+    // Check if Supabase is configured
+    if (!isSupabaseConfigured()) {
+      console.error('Supabase is not properly configured. Environment variables are missing.');
+      return NextResponse.json(
+        { error: 'Waitlist is temporarily unavailable. Please try again later.' },
+        { status: 503 }
+      );
+    }
+
     // Parse the JSON body from the request
     const body = await request.json();
     const { name, email } = body;
