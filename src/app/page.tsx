@@ -11,7 +11,7 @@ import FinalCTA from "@/components/sections/FinalCTA";
 export default function Home() {
   return (
     <main className="min-h-screen flex flex-col">
-      <Header />
+      {/* <Header /> */}
       <Hero />
       <FeatureShowcase />
       <TechnicalSpecs />

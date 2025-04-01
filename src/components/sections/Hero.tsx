@@ -146,7 +146,7 @@ const Hero = () => {
           className="object-cover object-center"
           style={{ filter: 'brightness(1.1)' }} // Darken the image slightly to improve text visibility
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/40" />
       </div>
       
       {/* Ripple effect canvas - above the image */}
@@ -156,53 +156,75 @@ const Hero = () => {
       />
       
       {/* Hero content */}
-      <div className="flex flex-col items-center justify-center z-20 w-full px-4 py-24 pt-50">
-        {/* Text content */}
-        <motion.div 
-          className="text-center z-10 max-w-3xl"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.h1 
-            className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-70 text-white"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            The Future is in <span className="text-sky-500">Sight</span>
-          </motion.h1>
-          
-          <motion.p 
-            className="text-xl md:text-2xl text-neutral-300 mb-10 max-w-2xl mx-auto font-light"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Experience reality enhanced with our precisely engineered Cleo glasses. Clean design meets revolutionary technology.
-          </motion.p>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+      <div className="relative flex flex-col z-20 w-full h-full min-h-screen">
+        {/* Part 1: Centered title */}
+        <div className="flex-1 flex items-center justify-center px-4 mt-[-600px]">
+          <motion.div 
+            className="text-center z-10"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex items-center justify-center relative mb-12"
+            transition={{ duration: 0.6 }}
           >
-            <Button 
-              variant="primary" 
-              size="lg"
-              className="rounded-full px-10 py-6 text-base font-medium tracking-wide bg-sky-600 hover:bg-sky-700"
-              onClick={() => {
-                const featuresSection = document.getElementById("features");
-                if (featuresSection) {
-                  featuresSection.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
+            <motion.h1 
+              className="text-5xl md:text-6xl lg:text-6xl font-bold tracking-tight text-white whitespace-nowrap"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
             >
-              Discover
-            </Button>
+              <span className="text-sky-500">First</span> AR Workout Glasses 
+            </motion.h1>
           </motion.div>
-        </motion.div>
+        </div>
+
+        {/* Part 2: Description text */}
+        <div className="w-full px-4 absolute bottom-[580px]">
+          <motion.div 
+            className="text-center max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.p 
+              className="text-xl md:text-2xl text-neutral-300 max-w-2xl mx-auto font-light"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              View your reps, heart rate, and muscle data in real-time. Revolutionizing the next approach to workout.
+            </motion.p>
+          </motion.div>
+        </div>
+
+        {/* Part 3: Discover button */}
+        <div className="w-full px-4 absolute bottom-[100px]">
+          <motion.div 
+            className="text-center max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex items-center justify-center"
+            >
+              <Button 
+                variant="primary" 
+                size="lg"
+                className="rounded-full px-10 py-6 text-base font-medium tracking-wide bg-sky-600 hover:bg-sky-700"
+                onClick={() => {
+                  const featuresSection = document.getElementById("features");
+                  if (featuresSection) {
+                    featuresSection.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+              >
+                Discover
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

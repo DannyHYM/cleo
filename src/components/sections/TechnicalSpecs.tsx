@@ -18,16 +18,16 @@ const specPoints: SpecPoint[] = [
     id: "A",
     title: "Ultra-Wide HD Lens",
     description: "Take panoramic, high-quality photos and videos with the ultra-wide 12 megapixel lens.",
-    x: "41%",
-    y: "26%",
+    x: "46.3%",
+    y: "22%",
     delay: 0.1,
   },
   {
     id: "B",
     title: "UI Navigation",
     description: "Delicately crafted stainless steel knob for easy navigation.",
-    x: "62%",
-    y: "25%",
+    x: "60%",
+    y: "16%",
     delay: 0.3,
   },
   {
@@ -35,7 +35,7 @@ const specPoints: SpecPoint[] = [
     title: "Li-Ion Battery",
     description: "Custom-designed 1200mAh battery with fast charging capability via USB-C.",
     x: "67.5%",
-    y: "60%",
+    y: "63%",
     delay: 0.2,
   },
   {
@@ -43,7 +43,7 @@ const specPoints: SpecPoint[] = [
     title: "Neural Processor",
     description: "Custom 5nm SoC with dedicated AI cores for real-time processing.",
     x: "80%",
-    y: "55%",
+    y: "62%",
     delay: 0.5,
   },
   {
@@ -59,6 +59,23 @@ const specPoints: SpecPoint[] = [
 
 const TechnicalSpecs = () => {
   const [activeSpec, setActiveSpec] = useState<string | null>(null);
+
+  const getImageOffset = (activeId: string | null) => {
+    switch (activeId) {
+      case 'A': // Ultra-Wide HD Lens
+        return { x: 50, y: -50 };
+      case 'B': // UI Navigation
+        return { x: -50, y: -50 };
+      case 'C': // Li-Ion Battery
+        return { x: -50, y: 50 };
+      case 'D': // Neural Processor
+        return { x: -100, y: 50 };
+      case 'E': // Blue Light Protection Lenses
+        return { x: 100, y: 50 };
+      default:
+        return { x: 0, y: 0 };
+    }
+  };
 
   return (
     <section id="specs" className="py-24 px-2 md:px-4 bg-neutral-50 dark:bg-neutral-950 relative overflow-hidden">
@@ -91,7 +108,7 @@ const TechnicalSpecs = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto font-medium"
           >
-            Built with precision for uncompromising performance
+            Feels like nothing. Works like everything.
           </motion.p>
         </motion.div>
         
@@ -105,14 +122,24 @@ const TechnicalSpecs = () => {
             transition={{ duration: 0.8 }}
           >
             {/* Product render image */}
-            <div className="absolute inset-0 z-0 flex items-center justify-center">
-              <Image
-                src="/render.png"
-                alt="Cleo AR Glasses"
-                fill
-                className="object-contain"
-                priority
-              />
+            <div className="absolute inset-0 z-0 flex items-center justify-center overflow-hidden">
+              <motion.div
+                className="relative w-full h-full"
+                animate={{
+                  scale: activeSpec ? 1.2 : 1,
+                  x: getImageOffset(activeSpec).x,
+                  y: getImageOffset(activeSpec).y,
+                }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              >
+                <Image
+                  src="/render.png"
+                  alt="Cleo AR Glasses"
+                  fill
+                  className="object-contain transition-all duration-500"
+                  priority
+                />
+              </motion.div>
             </div>
 
             {/* Spec points only - no overlay */}
