@@ -4,7 +4,8 @@ import { useEffect, useState, useRef } from "react";
 import { 
   initImageCache, 
   generateFrameUrls, 
-  preloadImageBatch 
+  preloadImageBatch,
+  preloadImage 
 } from "@/utils/imageOptimizer";
 
 interface LoadingScreenProps {
@@ -14,7 +15,7 @@ interface LoadingScreenProps {
 
 const LoadingScreen = ({ onLoadingComplete, framesToLoad = 192 }: LoadingScreenProps) => {
   const [loadingProgress, setLoadingProgress] = useState(0);
-  const [loadingStage, setLoadingStage] = useState<'initializing' | 'loading' | 'finalizing'>('initializing');
+  const [loadingStage, setLoadingStage] = useState<'initializing' | 'loading-critical' | 'loading-remaining' | 'finalizing'>('initializing');
   const loadingAttempted = useRef(false);
   
   useEffect(() => {
@@ -26,32 +27,101 @@ const LoadingScreen = ({ onLoadingComplete, framesToLoad = 192 }: LoadingScreenP
       try {
         // Initialize the image cache system
         initImageCache();
-        setLoadingStage('loading');
+        setLoadingStage('loading-critical');
         
         // Generate frame URLs
         const frameUrls = generateFrameUrls('frame-anim-1', framesToLoad, 0);
         
-        // Split loading into chunks for better UX feedback
-        const chunkSize = 32; // Load in chunks of 32 frames
-        for (let i = 0; i < frameUrls.length; i += chunkSize) {
-          const chunk = frameUrls.slice(i, Math.min(i + chunkSize, frameUrls.length));
-          const chunkWeight = chunk.length / frameUrls.length;
-          const chunkStartProgress = (i / frameUrls.length) * 100;
+        // First load critical frames (keyframes) for immediate display
+        const criticalFrames = [
+          frameUrls[0],                                // First frame
+          frameUrls[Math.floor(frameUrls.length * 0.25)], // 25% through
+          frameUrls[Math.floor(frameUrls.length * 0.5)],  // Middle frame
+          frameUrls[Math.floor(frameUrls.length * 0.75)], // 75% through
+          frameUrls[frameUrls.length - 1]              // Last frame
+        ];
+
+        // Preload critical frames first (10% of progress)
+        await preloadImageBatch(
+          criticalFrames,
+          (progress) => {
+            setLoadingProgress(Math.floor(progress * 0.1)); // First 10% of progress
+          },
+          3 // 3 at a time
+        );
+        
+        setLoadingStage('loading-remaining');
+
+        // Create adaptive batches - smaller near the beginning and end
+        const createAdaptiveBatches = (urls: string[]): string[][] => {
+          const batches: string[][] = [];
+          const totalFrames = urls.length;
           
-          // Preload this chunk of images
-          await preloadImageBatch(
-            chunk,
-            (chunkProgress) => {
-              // Calculate overall progress including previous chunks
-              const overallProgress = chunkStartProgress + (chunkProgress * chunkWeight);
-              setLoadingProgress(Math.min(Math.floor(overallProgress), 99)); // Cap at 99% until completely done
-            },
-            5 // 5 images at a time in each batch
+          // Already loaded critical frames, filter them out
+          const remainingFrames = urls.filter(url => !criticalFrames.includes(url));
+          
+          // Create batches based on position in the animation
+          const batchSize = 12; // Default batch size
+          
+          // Prioritize beginning, middle and end segments of the animation
+          // by loading them in specific order
+          
+          // Beginning segment (first 25%)
+          const beginningFrames = remainingFrames.filter((_, i) => 
+            i < Math.floor(remainingFrames.length * 0.25)
           );
           
-          // Give the browser a moment to breathe between chunks
-          if (i + chunkSize < frameUrls.length) {
-            await new Promise(resolve => setTimeout(resolve, 50));
+          // End segment (last 25%)
+          const endFrames = remainingFrames.filter((_, i) => 
+            i >= Math.floor(remainingFrames.length * 0.75)
+          );
+          
+          // Middle segment (remaining 50%)
+          const middleFrames = remainingFrames.filter((_, i) => 
+            i >= Math.floor(remainingFrames.length * 0.25) && i < Math.floor(remainingFrames.length * 0.75)
+          );
+          
+          // Create beginning batches (high priority)
+          for (let i = 0; i < beginningFrames.length; i += batchSize) {
+            batches.push(beginningFrames.slice(i, i + batchSize));
+          }
+          
+          // Create end batches (second priority)
+          for (let i = 0; i < endFrames.length; i += batchSize) {
+            batches.push(endFrames.slice(i, i + batchSize));
+          }
+          
+          // Create middle batches (lower priority)
+          for (let i = 0; i < middleFrames.length; i += batchSize) {
+            batches.push(middleFrames.slice(i, i + batchSize));
+          }
+          
+          return batches;
+        };
+        
+        // Get adaptive batches
+        const batches = createAdaptiveBatches(frameUrls);
+        
+        // Load all batches
+        for (let i = 0; i < batches.length; i++) {
+          const batch = batches[i];
+          const batchWeight = batch.length / frameUrls.length;
+          const batchStartProgress = 10 + ((i / batches.length) * 89); // 10-99% progress range
+          
+          // Preload this batch
+          await preloadImageBatch(
+            batch,
+            (batchProgress) => {
+              // Calculate overall progress
+              const overallProgress = batchStartProgress + (batchProgress * batchWeight);
+              setLoadingProgress(Math.min(Math.floor(overallProgress), 99));
+            },
+            8 // Load 8 at a time for better performance
+          );
+          
+          // Give the browser a moment to breathe between batches
+          if (i < batches.length - 1) {
+            await new Promise(resolve => setTimeout(resolve, 10));
           }
         }
         
@@ -97,10 +167,11 @@ const LoadingScreen = ({ onLoadingComplete, framesToLoad = 192 }: LoadingScreenP
           ></div>
         </div>
         
-        {/* Loading status - removed 'frames' from the text */}
+        {/* Loading status text - more informative */}
         <div className="text-white text-sm font-light">
           {loadingStage === 'initializing' && 'Preparing...'}
-          {loadingStage === 'loading' && `Loading: ${loadingProgress}%`}
+          {loadingStage === 'loading-critical' && `Optimizing critical frames: ${loadingProgress}%`}
+          {loadingStage === 'loading-remaining' && `Loading animation: ${loadingProgress}%`}
           {loadingStage === 'finalizing' && 'Finalizing...'}
         </div>
       </div>

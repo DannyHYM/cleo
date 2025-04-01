@@ -165,7 +165,7 @@ const Hero = () => {
             transition={{ duration: 0.6 }}
           >
             <motion.h1 
-              className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
