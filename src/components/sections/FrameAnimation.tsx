@@ -301,8 +301,17 @@ const FrameAnimation = () => {
       navigator.userAgent
     );
     
-    // Check for low memory conditions
-    const isLowMemory = navigator.deviceMemory !== undefined && navigator.deviceMemory < 4;
+    // Check for low memory conditions - safe type checking for deviceMemory
+    let isLowMemory = false;
+    try {
+      // Check if the property exists on navigator and is accessible
+      // @ts-ignore - deviceMemory is not in all TypeScript navigator types
+      const memory = navigator.deviceMemory;
+      isLowMemory = typeof memory === 'number' && memory < 4;
+    } catch (e) {
+      // Property not available, default to false
+      isLowMemory = false;
+    }
     
     // High DPI screens can benefit from canvas rendering too
     const isHighDPI = window.devicePixelRatio > 1.5;
