@@ -3,7 +3,6 @@
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -157,35 +156,25 @@ const Hero = () => {
       
       {/* Hero content */}
       <div className="relative flex flex-col z-20 w-full h-full min-h-screen">
-        {/* Part 1: Centered title */}
-        <div className="flex-1 flex items-center justify-center px-4 mt-[-600px]">
+        {/* Combined Title and Description */}
+        <div className="flex-1 flex items-center justify-center px-4">
           <motion.div 
-            className="text-center z-10"
+            className="text-center z-10 max-w-3xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <motion.h1 
-              className="text-5xl md:text-6xl lg:text-6xl font-bold tracking-tight text-white whitespace-nowrap"
+              className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
             >
               <span className="text-sky-500">First</span> AR Workout Glasses 
             </motion.h1>
-          </motion.div>
-        </div>
-
-        {/* Part 2: Description text */}
-        <div className="w-full px-4 absolute bottom-[580px]">
-          <motion.div 
-            className="text-center max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+            
             <motion.p 
-              className="text-xl md:text-2xl text-neutral-300 max-w-2xl mx-auto font-light"
+              className="text-lg md:text-xl lg:text-2xl text-neutral-300 max-w-2xl mx-auto font-light"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -195,7 +184,7 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Part 3: Down arrow indicator */}
+        {/* Down arrow indicator */}
         <div className="w-full px-4 absolute bottom-[120px]">
           <motion.div 
             className="flex justify-center"
