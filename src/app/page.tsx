@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
 import FrameAnimation from "@/components/sections/FrameAnimation";
 import FeatureShowcase from "@/components/sections/FeatureShowcase";
+import RenderShowcase from "@/components/sections/RenderShowcase";
 import TechnicalSpecs from "@/components/sections/TechnicalSpecs";
 import UseCases from "@/components/sections/UseCases";
 import Testimonials from "@/components/sections/Testimonials";
@@ -159,6 +160,7 @@ export default function Home() {
           <Hero />
           <FrameAnimation />
           <FeatureShowcase />
+          <RenderShowcase />
           <TechnicalSpecs />
           <UseCases />
           {/* <Testimonials />

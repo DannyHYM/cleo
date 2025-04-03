@@ -17,18 +17,19 @@ type UseCase = {
   bgColor: string;
   delay: number;
   titleColor?: string;
+  textColor?: string;
 };
 
 const useCases: UseCase[] = [
   {
     id: "productivity",
-    title: "Enhanced Productivity",
-    description: "Transform how you work with hands-free computing and contextual information.",
+    title: "Hands-Free Workout",
+    description: "No more tapping and fiddling with your phone or fitness watch.",
     iconPath: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
     benefits: [
-      { text: "Hands-free task management", delay: 0.1 },
-      { text: "Contextual information display", delay: 0.2 },
-      { text: "Real-time collaboration tools", delay: 0.3 },
+      { text: "Seamlessly track rest periods", delay: 0.1 },
+      { text: "Automated rep counting", delay: 0.2 },
+      { text: "Monitor your growth over time", delay: 0.3 },
     ],
     imagePosition: "right",
     bgColor: "bg-sky-50 dark:bg-sky-950/20",
@@ -37,27 +38,28 @@ const useCases: UseCase[] = [
   },
   {
     id: "navigation",
-    title: "Intuitive Navigation",
-    description: "Never get lost again with AR guidance overlays for indoor and outdoor navigation.",
+    title: "Real-Time Feedback",
+    description: "Cleo reacts as you move. The most dynamic data visualization on the market.",
     iconPath: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7",
     benefits: [
-      { text: "Turn-by-turn AR directions", delay: 0.1 },
-      { text: "Location-based information", delay: 0.2 },
-      { text: "Indoor mapping and guidance", delay: 0.3 },
+      { text: "Immediate posture and form correction", delay: 0.1 },
+      { text: "Live muscle engagement heatmaps", delay: 0.2 },
+      { text: "Adaptive recommendations as you train", delay: 0.3 },
     ],
     imagePosition: "left",
     bgColor: "bg-sky-400/20 dark:bg-sky900/10",
     delay: 0.3,
+    textColor: "text-white",
   },
   {
     id: "communication",
-    title: "Seamless Communication",
+    title: "Sleekest Design. Ever.",
     description: "Interact naturally with digital content and stay connected with immersive presence.",
     iconPath: "M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z",
     benefits: [
-      { text: "Holographic video calling", delay: 0.1 },
-      { text: "Shared AR experiences", delay: 0.2 },
-      { text: "Visual message annotations", delay: 0.3 },
+      { text: "Fashionable for everyday wear", delay: 0.1 },
+      { text: "Distraction-free UI", delay: 0.2 },
+      { text: "Comfortable ergonomics and stable head movement", delay: 0.3 },
     ],
     imagePosition: "right",
     bgColor: "bg-sky-50 dark:bg-sky-950/20",
@@ -88,7 +90,7 @@ const UseCaseCard = ({ useCase }: { useCase: UseCase }) => {
           <h3 className={`text-2xl font-bold ${useCase.titleColor || ''}`}>{useCase.title}</h3>
         </div>
         
-        <p className="text-neutral-600 dark:text-neutral-400 mb-6">{useCase.description}</p>
+        <p className={`mb-6 ${useCase.textColor || 'text-neutral-600 dark:text-neutral-400'}`}>{useCase.description}</p>
         
         <ul className="space-y-3">
           {useCase.benefits.map((benefit, index) => (
@@ -103,7 +105,7 @@ const UseCaseCard = ({ useCase }: { useCase: UseCase }) => {
               <svg className="w-5 h-5 text-sky-600 dark:text-sky-400 mr-3 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              <span className="text-neutral-700 dark:text-neutral-300">{benefit.text}</span>
+              <span className={`${useCase.textColor || 'text-neutral-700 dark:text-neutral-300'}`}>{benefit.text}</span>
             </motion.li>
           ))}
         </ul>
@@ -208,7 +210,7 @@ const UseCases = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Use Cases & Benefits</h2>
-          <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
+          <p className="text-white dark:text-white max-w-2xl mx-auto">
             Discover how Cleo glasses seamlessly integrate into your daily life, enhancing how you work, navigate, and communicate.
           </p>
         </motion.div>
