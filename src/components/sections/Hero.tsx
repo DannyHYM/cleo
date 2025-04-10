@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Spotlight } from '@/components/ui/spotlight';
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -170,7 +171,7 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
             >
-              <span className="text-sky-500">First</span> AR Workout Glasses 
+              World's <span className="text-sky-500">First</span> AR Workout Glasses 
             </motion.h1>
             
             <motion.p 
@@ -179,7 +180,7 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              View your reps, heart rate, and muscle data in real-time. Revolutionizing the next approach to workout.
+              View your reps, heart rate, and muscle data in real-time. Revolutionizing workouts.
             </motion.p>
           </motion.div>
         </div>

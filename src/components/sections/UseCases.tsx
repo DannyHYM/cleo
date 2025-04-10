@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Spotlight } from "@/components/ui/spotlight";
 
 type Benefit = {
   text: string;
@@ -79,6 +80,7 @@ const UseCaseCard = ({ useCase }: { useCase: UseCase }) => {
       transition={{ duration: 0.6, delay: useCase.delay }}
       className={`flex flex-col ${isRightImage ? "md:flex-row" : "md:flex-row-reverse"} gap-8 md:gap-12 p-6 md:p-8 rounded-2xl ${useCase.bgColor} mb-12 md:mb-20`}
     >
+      
       {/* Content */}
       <div className="flex-1 flex flex-col justify-center">
         <div className="flex items-center mb-4">
