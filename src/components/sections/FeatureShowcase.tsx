@@ -86,9 +86,10 @@ const FeatureShowcase = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto font-light"
+            className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto font-light space-y-2"
           >
-            Your Personal AI Trainer. No Phones, No Interruptions, Just Results.
+            <span className="block">Your Personal AI Trainer.</span>
+            <span className="block">No Phones, No Interruptions, Just Results.</span>
           </motion.p>
         </motion.div>
         
@@ -127,7 +128,7 @@ const FeatureShowcase = () => {
               
               <h3 className="text-xl font-semibold mb-3 text-sky-700 dark:text-sky-400">{feature.title}</h3>
               
-              <p className="text-neutral-400/30 dark:text-neutral-500/70 font-light group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors duration-300">{feature.description}</p>
+              <p className="text-neutral-700 dark:text-neutral-300 font-light">{feature.description}</p>
             </motion.div>
           ))}
         </div>
