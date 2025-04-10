@@ -160,13 +160,13 @@ const Hero = () => {
         {/* Combined Title and Description */}
         <div className="flex-1 flex items-center justify-center px-4">
           <motion.div 
-            className="text-center z-10 max-w-3xl"
+            className="text-center z-10 max-w-4xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <motion.h1 
-              className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6 whitespace-nowrap"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
