@@ -182,6 +182,22 @@ const Hero = () => {
             >
               View your reps, heart rate, and muscle data in real-time. Revolutionizing workouts.
             </motion.p>
+
+            {/* Join Waitlist Button */}
+            <motion.button
+              className="mt-8 px-8 py-4 bg-sky-600 hover:bg-sky-700 text-white font-medium rounded-full text-lg transition-colors duration-300"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              onClick={() => {
+                const waitlistForm = document.getElementById("waitlist-form");
+                if (waitlistForm) {
+                  waitlistForm.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
+              Join Waitlist
+            </motion.button>
           </motion.div>
         </div>
 

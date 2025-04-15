@@ -61,7 +61,7 @@ export const WaitlistForm = () => {
   };
   
   return (
-    <div className="w-full">
+    <div id="waitlist-form" className="w-full">
       {isSubmitted ? (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
