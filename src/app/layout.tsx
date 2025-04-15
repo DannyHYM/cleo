@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
+import MetaPixel from "@/components/MetaPixel";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -10,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Cleo - Next Generation Augmented Reality Glasses",
-  description: "Experience the future today with Cleo glasses. Join the waitlist for our cutting-edge augmented reality technology designed for everyday use.",
+  title: "Cleo - World's First AR Workout Glasses",
+  description: "View your reps, heart rate, and muscle data in real-time. Revolutionizing the next approach to workout.",
   keywords: ["Cleo glasses", "augmented reality", "wearable tech", "smart glasses", "future technology"],
 };
 
@@ -22,6 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <MetaPixel />
+      </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         {children}
         <Toaster position="top-center" />
