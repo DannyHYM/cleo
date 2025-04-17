@@ -13,6 +13,7 @@ import Testimonials from "@/components/sections/Testimonials";
 import FounderStory from "@/components/sections/FounderStory";
 import FinalCTA from "@/components/sections/FinalCTA";
 import LoadingScreen from "@/components/LoadingScreen";
+import { POVRender } from "@/components/sections/POVRender";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -159,12 +160,11 @@ export default function Home() {
           {/* <Header /> */}
           <Hero />
           <FrameAnimation />
+          <POVRender />
           <FeatureShowcase />
           <RenderShowcase />
           <TechnicalSpecs />
           <UseCases />
-          {/* <Testimonials />
-          <FounderStory /> */}
           <FinalCTA />
           <Footer />
         </main>
