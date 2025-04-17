@@ -164,7 +164,7 @@ export default function Home() {
           <FeatureShowcase />
           <RenderShowcase />
           <TechnicalSpecs />
-          <UseCases />
+          {/* <UseCases /> */}
           <FinalCTA />
           <Footer />
         </main>
