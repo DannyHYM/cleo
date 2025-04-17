@@ -12,8 +12,6 @@ const nextConfig: NextConfig = {
     // This helps with image optimization
     unoptimized: true,
   },
-  // Improve build performance
-  swcMinify: true,
   // Stricter production builds can cause issues with external libraries
   reactStrictMode: false,
 };

@@ -4,11 +4,14 @@ import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Spotlight } from '@/components/ui/spotlight';
+import { Modal } from '@/components/ui/modal';
+import { WaitlistForm } from '@/components/sections/WaitlistForm';
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -189,12 +192,7 @@ const Hero = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              onClick={() => {
-                const waitlistForm = document.getElementById("waitlist-form");
-                if (waitlistForm) {
-                  waitlistForm.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
+              onClick={() => setIsModalOpen(true)}
             >
               Join Waitlist
             </motion.button>
@@ -248,6 +246,19 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Waitlist Form Modal */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <div className="text-center mb-6">
+          <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
+            Join the Waitlist
+          </h2>
+          <p className="text-neutral-600 dark:text-neutral-400">
+            Be among the first to experience the future of AR workouts
+          </p>
+        </div>
+        <WaitlistForm />
+      </Modal>
     </section>
   );
 };
