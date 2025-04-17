@@ -80,7 +80,7 @@ export const POVRender = () => {
     <section className="w-full bg-black py-24">
       <div className="max-w-7xl mx-auto px-4">
         <motion.h2 
-          className="text-4xl md:text-5xl font-bold text-white text-center mb-16"
+          className="text-4xl md:text-5xl font-bold text-gray-400 text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

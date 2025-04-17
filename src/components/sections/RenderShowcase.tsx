@@ -7,16 +7,33 @@ const RenderShowcase = () => {
   return (
     <section className="relative h-[120vh] md:h-[140vh] lg:h-[160vh] w-full overflow-hidden bg-[#f5f2eb] dark:bg-[#0a0a0a]">
       {/* Full-screen background image */}
-      <div className="absolute inset-0 w-full h-full flex items-center justify-center">
+      <div className="absolute inset-0 w-full h-full">
         <Image
-          src="/CleoAngleMockup.png"
-          alt="Cleo Glasses Render"
+          src="/POV/cleo_app_mockup.png"
+          alt="Cleo App Mockup"
           fill
-          className="object-contain"
+          className="object-cover"
           priority
           sizes="100vw"
           quality={100}
         />
+      </div>
+      
+      {/* Title Text */}
+      <div className="relative z-10 w-full">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="absolute top-24 md:top-30 left-8 md:left-16 lg:left-24 text-left"
+        >
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+            View Your Progress
+            <br />
+            Everytime
+          </h2>
+        </motion.div>
       </div>
       
       {/* Optional overlay and content */}
